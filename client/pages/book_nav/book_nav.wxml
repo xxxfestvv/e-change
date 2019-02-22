@@ -1,0 +1,55 @@
+<view wx:if="{{hasList}}">
+  <view class='book-nav-book' wx:for='{{carts}}' wx:key='{{index}}'>
+  <image class="cart-thumb" src="{{item.image}}"></image>
+  <view class='cart-book-detail'>
+    <view class='cart-detail'>
+      <view style='margin-top:15px;'>
+      <view class="cart-pro-name">{{item.title}}</view>
+      <view class="cart-wrter-name">{{item.writer}}</view>
+      </view>
+      <text class="cart-del" bindtap="deleteList" data-index="{{index}}">×</text>
+    </view>
+    <view class='cart-price'>
+      <view style='font-size:14px; color:#848484;margin-right:8px;'>智能评估可换</view>
+      <image src='../../image/star.png'></image>
+      <text class="cart-pro-price">{{item.price}}</text>
+    </view>
+  </view>  
+  </view>
+</view>
+<view wx:else>
+   <view class="cart-no-data">购物车是空的哦~</view>
+</view>
+
+<!--规则-->
+<navigator class='book-nav-rule'>
+<view style='font-size:14px; color:#5A5A5A;'>了 解 更 多 规 则</view>
+<image src='../../image/右.png'></image>
+</navigator>
+
+
+<!--footer-->
+<view class='book-nav-footer'>
+
+  <view style='justify-content:center; display: flex;'>
+  <view class='book-nav-add'>
+  <image src='../../image/添加.png'></image>
+  <button bindtap='booknavadd'>继续添加</button>
+  </view>
+  </view>
+
+  <view class='book-nav-full'>
+    <view style='display:flex;margin-left:20px;'>
+    <view class='book-nav-title'>总共</view>
+    <view class='book-nav-num'>{{totalBook}}</view>
+    <view class='book-nav-title'>本书/资料 总共可换</view>
+    <view class='book-nav-num'>{{totalPrice}}</view>
+    <view class='book-nav-title'>积分</view>
+    </view>
+
+    <button bindtap='booknavup'>提交</button>
+  </view>
+</view>
+
+<modal hidden="{{booknavput}}" title="已提交书目与资料！" confirm-text="确定"  bindconfirm="confirm" no-cancel="true">
+</modal>

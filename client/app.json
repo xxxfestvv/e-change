@@ -1,0 +1,52 @@
+{
+  "pages": [
+    "pages/home/home",
+    "pages/book/book",
+    "pages/car/car",
+    "pages/my/my",
+    "pages/search_book/search_book",
+    "pages/detail_book/detail_book",
+    "pages/detail_note/detail_note",
+    "pages/my_order/my_order",
+    "pages/my_info/my_info",
+    "pages/my_book/my_book",
+    "pages/my_set/my_set",
+    "pages/book_nav/book_nav",
+    "pages/search_detail/search_detail"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTitleText": "WeChat",
+    "navigationBarTextStyle": "black"
+  },
+  "tabBar": {
+    "list": [
+      {
+        "pagePath": "pages/home/home",
+        "text": "首页",
+        "iconPath": "image/主页.png",
+        "selectedIconPath": "image/主页1.png"
+      },
+      {
+        "pagePath": "pages/book/book",
+        "text": "换书",
+        "iconPath": "image/书.png",
+        "selectedIconPath": "image/书2.png"
+      },
+      {
+        "pagePath": "pages/car/car",
+        "text": "购物车",
+        "iconPath": "image/购物车满.png",
+        "selectedIconPath": "image/购物车满2.png"
+      },
+      {
+        "pagePath": "pages/my/my",
+        "text": "我的",
+        "iconPath": "image/人.png",
+        "selectedIconPath": "image/人2.png"
+      }
+    ]
+  },
+  "cloud": true
+}

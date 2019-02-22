@@ -1,0 +1,80 @@
+<!--图片-->
+<view class='bookimg'>
+<view class='img'>
+<image src='../../image/1.jpg'></image>
+</view>
+</view>
+
+<!--固定底部-->
+<view class='bottom-fix'>
+<image src='../../image/主页.png' class='bottom-img' bindtap='gotohome'></image>
+<view><button class='bottom-button' bindtap='addtocar'>加入购物车</button></view>
+</view>
+
+
+<!--标题-->
+<view>
+<view style='font-size:22px;font-weight:bold;margin-left:20px;margin-top:20px;'>资料名</view>
+<view class='bookstar'><image class='img_star' src='../../image/star.png'></image><text>8</text></view>
+</view>
+<view class='title_provide'>原价：</view>
+<view class='title_provide'>作者：</view>
+<view class='title_provide'>出版社：</view>
+<view class='title_provide'>ISBN：</view>
+<view class='title_provide'>装帧：</view>
+
+<!--评分-->
+<view class='score'>
+<view style='font-size:16px; color:#BBA27C; float:left; margin-left:20px; margin-top:14px;'>书友评分：</view>
+<view style='font-size:16px; color:#BBA27C; float:left; margin-left:5px; margin-top:14px;'>9.8分</view>
+<view class='score_star'><image src='../../image/score.png' style='height: 16px;width: 98px;'></image></view>
+</view>
+
+<!--简介-->
+<view class='list' wx:for='{{DataSource}}' wx:key="index">
+    <!-- 内容 start-->
+    <view class='user-content-title'>作品简介</view>
+    <view class="user-content-view {{item.isF?'hide':'show'}}">
+    <text class="user-content">{{item.content}}</text>
+    </view>
+    <!-- 内容 end-->
+
+    <!-- 展开 收起 strat-->
+    <view bindtap="change" class="state" data-index="{{index}}">{{item.isF?'展开':'收起'}}</view>
+    <!-- 展开 收起  end -->
+</view>
+
+<!--评论-->
+<view class='comment-title'>推荐点评</view>
+<!--评论1-->
+<view class='comment-container'>
+<image src='../../image/头1.jpg' class='comment-img'></image>
+<view class='comment-middle'>
+<view class='comment-name'>
+<view style='font-size:14px;color:black;'>昵称</view>
+<image src='../../image/score2.png' class='comment-star'></image>
+</view>
+<view style='font-size:12px; color:#5A5A5A;margin-top:8px;'>作品很棒！很棒！</view>
+</view>
+</view>
+<!--评论2-->
+<view class='comment-container'>
+<image src='../../image/头2.jpg' class='comment-img'></image>
+<view class='comment-middle'>
+<view class='comment-name'>
+<view style='font-size:14px;color:black;'>昵称</view>
+<image src='../../image/score2.png' class='comment-star'></image>
+</view>
+<view style='font-size:12px; color:#5A5A5A;margin-top:8px;'>作品很棒！很棒！</view>
+</view>
+</view>
+
+<!--推荐-->
+<view class='comment-title' style='margin-top:20px;'>猜你喜欢</view>
+<view class='reco-row'>
+<view class='reco-col'>
+<view class='col-3'><image src='../../image/4.jpg' class='reco-img'></image><view class='reco-title'>推荐资料</view></view>
+<view class='col-3'><image src='../../image/2.jpg' class='reco-img'></image><view class='reco-title'>推荐资料</view></view>
+<view class='col-3'><image src='../../image/3.jpg' class='reco-img'></image><view class='reco-title'>推荐资料</view></view>
+</view>
+</view>

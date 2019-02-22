@@ -1,0 +1,69 @@
+<view class="weui-search-bar">
+  <view class="weui-search-bar__form">
+    <view class="weui-search-bar__box">
+      <icon class="weui-icon-search_in-box" type="search" size="14"></icon>
+      <input type="text" class="weui-search-bar__input"  disabled='true' placeholder="搜索入口" bindtap="wxSearchTab"/>
+    </view>
+  </view>
+</view>
+
+<view>{{searchValue}}</view>
+
+<!--轮播图-->
+<scroll-view scroll-x="true" style="white-space:nowrap;display:flex">
+<image class='image_scroll' src='../../image/1.jpg'></image>
+<image class='image_scroll' src='../../image/2.jpg'></image>
+<image class='image_scroll' src='../../image/3.jpg'></image>
+<image class='image_scroll' src='../../image/4.jpg'></image>
+<image class='image_scroll' src='../../image/5.jpg'></image>
+</scroll-view>
+
+<!--按钮
+<view class='btn_contain'>
+<button class='btn1'>本周书目</button>
+<button class='btn2'>资料分享</button>
+</view>-->
+<view class='topTabSwiper'>
+<view class='tab  {{currentData == 0 ? "tabBorer" : ""}}'  data-current = "0" bindtap='checkCurrent'>本周书目</view>
+<view class='tab  {{currentData == 1 ? "tabBorer" : ""}}'  data-current = "1" bindtap='checkCurrent'>资料分享</view>
+</view>
+<!--分栏-->
+<swiper current="{{currentData}}" class='swiper' style="height:400px;" duration="300" bindchange="bindchange">
+<!--本周书目-->
+<swiper-item>
+<scroll-view scroll-y='true' style='height:100%'>
+
+<view wx:if="{{bookhasList}}">
+  <view class='book' wx:for='{{book}}' wx:key='{{index}}'>
+  
+  <image bindtap='click_book' class="bookimg" src="{{item.image}}"></image>
+  <view class='middle'>
+  <view class='booktitle'><text>{{item.title}}</text></view>
+  <view class='bookwriter'><text>{{item.writer}}</text></view>
+  <view class='bookstar'><image class='img_star' src='../../image/star.png'></image><text>{{item.price}}</text></view>
+  </view>
+
+  </view>
+</view>
+
+</scroll-view></swiper-item>
+
+<!--资料分享-->
+<swiper-item>
+<scroll-view scroll-y='true' style='height:100%'>
+
+  <view wx:if="{{notehasList}}">
+    <view class='book' wx:for='{{note}}' wx:key='{{index}}'>
+    
+    <image bindtap='click_note' class="bookimg" src="{{item.image}}"></image>
+    <view class='middle'>
+    <view class='booktitle'><text>{{item.title}}</text></view>
+    <view class='bookwriter'><text>{{item.writer}}</text></view>
+    <view class='bookstar'><image class='img_star' src='../../image/star.png'></image><text>{{item.price}}</text></view>
+    </view>
+
+    </view>
+  </view>
+
+</scroll-view></swiper-item>
+</swiper>

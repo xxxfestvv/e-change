@@ -1,0 +1,90 @@
+<view class='topTabSwiper'>
+  <view class='tab  {{currentData == 0 ? "tabBorer" : ""}}' data-current="0" bindtap='checkCurrent'>已被换取</view>
+  <view class='tab  {{currentData == 1 ? "tabBorer" : ""}}' data-current="1" bindtap='checkCurrent'>还未被换</view>
+</view>
+<!--分栏-->
+<swiper current="{{currentData}}" class='swiper' style="height:700px;" duration="300" bindchange="bindchange">
+  <!--本周书目-->
+  <swiper-item>
+    <scroll-view scroll-y='true' style='height:100%'>
+
+      <view wx:if="{{chasList}}">
+        <view class='order-book' wx:for='{{cbook}}' wx:key='{{index}}'>
+
+          <image src="{{item.image}}"></image>
+          <view style='margin-left:13px; width:40%;'>
+            <text class='order-book-text'>{{item.title}}
+            </text>
+          </view>
+          <button class='order-btn' catchtap='scoreinput' data-goodsid="{{item._id}}">我已发货</button>
+        </view>
+
+        <view class='order-book' wx:for='{{cnote}}' wx:key='{{index}}'>
+
+          <image src="{{item.image}}"></image>
+          <view style='margin-left:13px; width:40%;'>
+            <text class='order-book-text'>{{item.title}}
+            </text>
+          </view>
+          <button class='order-btn' bindtap='scoreinput'>我已发货</button>
+        </view>
+      </view>
+
+      <view wx:else>
+        目前还未被管理员确认哦～
+      </view>
+
+    </scroll-view>
+  </swiper-item>
+
+  <!--资料分享-->
+  <swiper-item>
+    <scroll-view scroll-y='true' style='height:100%'>
+
+      <view wx:if="{{uhasList}}">
+        <view class='order-book' wx:for='{{ubook}}' wx:key='{{index}}'>
+          <image src='{{item.image}}'></image>
+          <view style='margin-left:13px; width:40%;'>
+            <text class='order-book-text'>{{item.title}}
+            </text>
+          </view>
+          <button class='order-btn' bindtap='bookcancle'>取消发布</button>
+        </view>
+
+        <view class='order-book' wx:for='{{unote}}' wx:key='{{index}}'>
+          <image src='{{item.image}}'></image>
+          <view style='margin-left:13px; width:40%;'>
+            <text class='order-book-text'>{{item.title}}
+            </text>
+          </view>
+          <button class='order-btn' bindtap='bookcancle'>取消发布</button>
+        </view>
+      </view>
+
+      <view wx:else>
+        目前还未被换取哦～
+      </view>
+    </scroll-view>
+  </swiper-item>
+</swiper>
+
+<modal hidden="{{scoreput}}" title="请选择发货地点" confirm-text="确认" cancel-text="取消" bindcancel="scorecancel" bindconfirm="scoreconfirm">
+
+  <!--下拉框  -->
+  <view class='my-list' bindtap='bindShowMsg'>
+    <text>{{defaultpoint}}</text>
+    <image style='height:20rpx;width:20rpx;' src='../../image/选择.png'></image>
+  </view>
+  <!-- 下拉需要显示的列表 -->
+  <view class="select_box" wx:if="{{select}}">
+    <view class="select_one" bindtap="mySelect" data-name="中山北路第一提货点">中山北路第一提货点</view>
+    <view class="select_one" bindtap="mySelect" data-name="中山北路第二提货点">中山北路第二提货点</view>
+    <view class="select_one" bindtap="mySelect" data-name="中山北路第三提货点">中山北路第三提货点</view>
+    <view class="select_one" bindtap="mySelect" data-name="闵行第一提货点">闵行第一提货点</view>
+    <view class="select_one" bindtap="mySelect" data-name="闵行第二提货点">闵行第二提货点</view>
+  </view>
+
+</modal>
+
+<modal hidden="{{cancleput}}" title="已取消" confirm-text="确认" bindconfirm="cancleconfirm" no-cancel='true'>
+</modal>

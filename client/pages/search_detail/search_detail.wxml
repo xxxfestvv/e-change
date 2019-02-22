@@ -1,0 +1,78 @@
+<view class='topTabSwiper'>
+<view class='tab  {{currentData == 0 ? "tabBorer" : ""}}'  data-current = "0" bindtap='checkCurrent'>书目</view>
+<view class='tab  {{currentData == 1 ? "tabBorer" : ""}}'  data-current = "1" bindtap='checkCurrent'>资料</view>
+</view>
+<!--分栏-->
+<swiper current="{{currentData}}" class='swiper' style="height:505px;" duration="300" bindchange="bindchange">
+<!--本周书目-->
+<swiper-item>
+<scroll-view scroll-y='true' style='height:100%'>
+
+  <view wx:if="{{bookhasList}}">
+    <view class='book-nav-book' wx:for='{{book}}' wx:key='{{index}}'>
+    <image bindtap='bookviewdetail' class="cart-thumb" src="{{item.image}}"></image>
+    <view class='cart-book-detail'>
+
+      <view class='cart-detail'>
+        <view style='margin-top:15px;'>
+        <view class="cart-pro-name">{{item.title}}</view>
+        <view class="cart-wrter-name">{{item.writer}}</view>
+        </view>
+      </view>
+
+      <view class='cart-price'>
+        <view style='display:flex;'>
+        <image src='../../image/star.png' style='width: 20px; height: 20px; margin-right: 3px;'></image>
+        <text class="cart-pro-price">{{item.price}}</text>
+        </view>
+        <button bindtap='addtocar'>加入购物车</button>
+      </view>
+    
+    </view>  
+    </view>
+  </view>
+  <view wx:else>
+    <view class="cart-no-data">哎呀，没有你想要的书呢~</view>
+    <view class='cart-find-book' bindtap='findbook'>去求书 -></view>
+  </view>
+  <modal hidden="{{bookput}}" title="我要求书" confirm-text="提交" cancel-text="取消" bindcancel="bookcancel" bindconfirm="bookconfirm">
+<input type='text' placeholder="请输入ISBN号" auto-focus/>
+</modal>
+</scroll-view></swiper-item>
+
+<!--资料分享-->
+<swiper-item>
+<scroll-view scroll-y='true' style='height:100%'>
+    <view wx:if="{{notehasList}}">
+    <view class='book-nav-book' wx:for='{{note}}' wx:key='{{index}}'>
+    <image bindtap='noteviewdetail' class="cart-thumb" src="{{item.image}}"></image>
+    <view class='cart-book-detail'>
+
+      <view class='cart-detail'>
+        <view style='margin-top:15px;'>
+        <view class="cart-pro-name">{{item.title}}</view>
+        <view class="cart-wrter-name">{{item.writer}}</view>
+        </view>
+      </view>
+
+      <view class='cart-price'>
+        <view style='display:flex;'>
+        <image src='../../image/star.png' style='width: 20px; height: 20px; margin-right: 3px;' bindtap='noteviewdetail'></image>
+        <text class="cart-pro-price">{{item.price}}</text>
+        </view>
+        <button bindtap='addtocar'>加入购物车</button>
+      </view>
+
+    </view>  
+    </view>
+  </view>
+  <view wx:else>
+    <view class="cart-no-data">哎呀，没有你想要的资料呢~</view>
+    <view class='cart-find-book' bindtap='findnote'>去求资料 -></view>
+  </view>
+
+  <modal hidden="{{noteput}}" title="我要求资料" confirm-text="提交" cancel-text="取消" bindcancel="notecancel" bindconfirm="noteconfirm">
+  <input type='text' placeholder="请输入资料科目" auto-focus/>
+  </modal>
+</scroll-view></swiper-item>
+</swiper>

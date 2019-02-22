@@ -1,0 +1,27 @@
+<view class='my-set-label'>
+  <view class='my-set-title'>我的昵称</view>
+  <view class='my-set-text'>{{nickname}}</view>
+
+</view>
+
+<view class='my-set-label'>
+  <view class='my-set-title'>性别</view>
+  <view class='my-set-text'>{{gender}}</view>
+
+</view>
+
+<view class='my-set-label'>
+  <view class='my-set-title'>个人签名</view>
+  <view class='my-set-text'>{{sign}}</view>
+
+</view>
+
+<view class='my-set-bottom'>
+<button style='background-color:white;' bindtap='setbtn'>修改</button>
+</view>
+
+<modal hidden="{{btnput}}" title="修改" confirm-text="确认" cancel-text="取消" bindcancel="btncancel" bindconfirm="btnconfirm">
+<input value='{{nickname}}'></input>
+<input value='{{gender}}'></input>
+<input value='{{sign}}'></input>
+</modal>

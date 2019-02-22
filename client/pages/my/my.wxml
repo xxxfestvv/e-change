@@ -1,0 +1,109 @@
+<!--上方-->
+<view class='my-title'>
+  <view class='my-icon'>
+    <navigator url="../my_info/my_info">
+      <image class='my-info' src='../../image/通知.png'></image>
+    </navigator>
+    <navigator url="../my_set/my_set">
+      <image class='my-set' src='../../image/设置.png'></image>
+    </navigator>
+  </view>
+  <view class='my-head'>
+    <view class='my-head-image'>
+      <open-data type="userAvatarUrl"></open-data>
+    </view>
+    <open-data type="userNickName" lang="zh_CN"></open-data>
+    <view class='askforinfo'>
+    <button size='mini' type='primary' open-type='getUserInfo' bindgetuserinfo='getInfo'>授权</button>
+    </view>
+  </view>
+</view>
+
+<!--中间-->
+<view class='my-middle'>
+  <view class='my-point'>
+    <image src='../../image/star.png'></image>
+    <view style='font-size:28px; font-weight:bold; margin:-4px 0px 0px 5px;'>{{point}}</view>
+    <view style='font-size:14px; margin: 10px 0px 0px 5px;'>积分</view>
+  </view>
+
+  <view class='my-middle-icon'>
+
+    <navigator class='my-order' url="../my_order/my_order">
+      <image src='../../image/订单.png'></image>
+      <view style='font-size:14px;margin-left:20px;'>我的订单</view>
+    </navigator>
+
+    <navigator class='my-book' url="../my_book/my_book">
+      <image src='../../image/实物-书.png'></image>
+      <view style='font-size:14px;margin-left:20px;'>我的换书</view>
+    </navigator>
+  </view>
+</view>
+
+<!--下方分页-->
+<view class='topTabSwiper'>
+  <view class='tab  {{currentData == 0 ? "tabBorer" : ""}}' data-current="0" bindtap='checkCurrent'>书架</view>
+  <view class='tab  {{currentData == 1 ? "tabBorer" : ""}}' data-current="1" bindtap='checkCurrent'>资料簿</view>
+</view>
+<!--分栏-->
+<swiper current="{{currentData}}" class='swiper' style="height:300px;" duration="300" bindchange="bindchange">
+  <!--书架-->
+  <swiper-item>
+    <scroll-view scroll-y='true' style='height:100%'>
+
+      <view wx:if="{{bookhasList}}">
+        <view class='my-tab-book' wx:for='{{book}}' wx:key='{{index}}'>
+
+          <image bindtap='bookviewdetail' src="{{item.image}}"></image>
+          <view style='margin-left:13px; width:40%;'>
+            <view style='font-size:16px; margin-bottom:5px;'>{{item.title}}</view>
+            <view style='font-size:14px; color:#5A5A5A;'>{{item.writer}}</view>
+          </view>
+          <button class='my-tab-btn' bindtap='scoreinput'>评分</button>
+
+        </view>
+      </view>
+      <view wx:else>
+        目前没有书哦～
+      </view>
+
+    </scroll-view>
+  </swiper-item>
+
+  <!--资料分享-->
+  <swiper-item>
+    <scroll-view scroll-y='true' style='height:100%'>
+      <view wx:if="{{notehasList}}">
+        <view class='my-tab-book' wx:for='{{note}}' wx:key='{{index}}'>
+
+          <image bindtap='bookviewdetail' src="{{item.image}}"></image>
+          <view style='margin-left:13px; width:40%;'>
+            <view style='font-size:16px; margin-bottom:5px;'>{{item.title}}</view>
+            <view style='font-size:14px; color:#5A5A5A;'>{{item.writer}}</view>
+          </view>
+          <button class='my-tab-btn' bindtap='scoreinput'>评分</button>
+
+        </view>
+      </view>
+      <view wx:else>
+        目前没有资料哦～
+      </view>
+    </scroll-view>
+  </swiper-item>
+</swiper>
+
+<modal hidden="{{scoreput}}" title="请输入评分" confirm-text="提交" cancel-text="取消" bindcancel="scorecancel" bindconfirm="scoreconfirm">
+
+  <view class="comment1-description">
+    <view class="star-pos" style="display:flex;flex-direction:row;">
+      <view class="stars {{flag>=1? 'on': ''}}" bindtap='changeColor1'></view>
+      <view class="stars {{flag>=2? 'on': ''}}" bindtap='changeColor2'></view>
+      <view class="stars {{flag>=3? 'on': ''}}" bindtap='changeColor3'></view>
+      <view class="stars {{flag>=4? 'on': ''}}" bindtap='changeColor4'></view>
+      <view class="stars {{flag>=5? 'on': ''}}" bindtap='changeColor5'></view>
+    </view>
+  </view>
+
+  <input class='score-input' type='text' placeholder=" 请输入评价" auto-focus/>
+</modal>

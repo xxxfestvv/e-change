@@ -1,0 +1,45 @@
+<view class='topTabSwiper'>
+<view class='tab  {{currentData == 0 ? "tabBorer" : ""}}'  data-current = "0" bindtap='checkCurrent'>我的求书</view>
+<view class='tab  {{currentData == 1 ? "tabBorer" : ""}}'  data-current = "1" bindtap='checkCurrent'>我的供书</view>
+</view>
+<!--分栏-->
+<swiper current="{{currentData}}" class='swiper' style="height:700px;" duration="300" bindchange="bindchange">
+<!--本周书目-->
+<swiper-item>
+<scroll-view scroll-y='true' style='height:100%'>
+
+  <view wx:if="{{bookhasList}}">
+    <view class='order-book' wx:for='{{book}}' wx:key='{{index}}'>
+  <image src='{{item.image}}'></image>
+  <view style='margin-left:13px; width:40%;'>
+    <view style='font-size:16px; margin-bottom:5px;margin-top:3px;'>{{item.title}}
+    </view>
+    <text style='font-size:12px; color:#9CB382;'>已上架，快去看看吧
+    </text>
+  </view>
+  <button class='order-btn' bindtap='viewdetail'>查看详情</button>
+  </view>
+  </view>
+
+</scroll-view></swiper-item>
+
+<!--资料分享-->
+<swiper-item>
+<scroll-view scroll-y='true' style='height:100%'>
+
+  <view wx:if="{{askhasList}}">
+    <view class='my-info-book' wx:for='{{ask}}' wx:key='{{index}}'>
+    <image src='../../image/通知1.png'></image>
+    <view class='my-info-message'>
+      <view >您的供书订单已确认！</view>
+      <view style='color:#9CB382; font-size:14px;margin-top:5px;' bindtap='viewask'>您的《<text>{{item.title}}</text>》已被管理员上架，点击查看</view>
+    </view>
+  </view>
+  </view>
+
+</scroll-view></swiper-item>
+</swiper>
+
+<modal hidden="{{scoreput}}" title="确认收货" confirm-text="确认" cancel-text="取消" bindcancel="scorecancel" bindconfirm="scoreconfirm">
+<view style='text-align:center;'>已确认收货</view>
+</modal>
