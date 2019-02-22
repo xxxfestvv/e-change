@@ -16,7 +16,6 @@ Page({
     defaultpoint: '中山北路第三提货点',
     cancleput: true,
     cbook: [],
-    cnote: [],
     ubook: [],
     unote: [],
     chasList: false,          // 列表是否有数据
@@ -77,7 +76,7 @@ Page({
     console.log(this.data.defaultpoint);
     console.log(this.data.goodsid);
 
-    
+
     this.setData({
 
       scoreput: true
@@ -142,7 +141,6 @@ Page({
 
           for (var i = 0; i < res1.data.length; i++) {
 
-            if(res1.data[i].type == 1){
               booklistCollection.where({
                 _id: res1.data[i].id
               }).get().then(res2 => {
@@ -155,21 +153,6 @@ Page({
               }).catch(e => {
                 console.error(e)
               });
-            }
-              else if (res1.data[i].type == 2){
-              notelistCollection.where({
-                _id: res1.data[i].id
-              }).get().then(res2 => {
-                //console.log(res2.data[0]);
-                tmp2 = tmp2.concat(res2.data[0]);
-                //console.log(book1);
-                this.setData({
-                  cnote: tmp2
-                })
-              }).catch(e => {
-                console.error(e)
-              });
-            }
             
           }
         }).catch(e => {
