@@ -1,12 +1,14 @@
 var app = getApp()
 var that
-
+const db = wx.cloud.database()
+const bookCollection = db.collection('booklist')
 Page({
   /**
    * 页面的初始数据
    */
   data: {
-
+    book:[],
+    bookid:'',
     DataSource: [
       {
         isF: true,
@@ -15,7 +17,22 @@ Page({
     ]
   },
 
-
+  onLoad: function(options) {
+    this.setData({
+      bookid: options.bookid
+    });
+    // console.log(this.data.bookid);
+    bookCollection.where({
+      _id: options.bookid
+    }).get().then(res => {
+      // console.log(res.data)
+      this.setData({
+        book: res.data[0]
+      })
+    }).catch(e=>{
+      console.error(e);
+    });
+  },
 
   //展开  收起
   change: function (e) {

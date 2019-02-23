@@ -1,7 +1,7 @@
 <!--图片-->
 <view class='bookimg'>
 <view class='img'>
-<image src='../../image/1.jpg'></image>
+<image src='{{book.image}}'></image>
 </view>
 </view>
 
@@ -14,19 +14,18 @@
 
 <!--标题-->
 <view>
-<view style='font-size:22px;font-weight:bold;margin-left:20px;margin-top:20px;'>资料名</view>
+<view class='book-title'>{{book.title}}</view>
 <view class='bookstar'><image class='img_star' src='../../image/star.png'></image><text>8</text></view>
 </view>
-<view class='title_provide'>原价：</view>
-<view class='title_provide'>作者：</view>
-<view class='title_provide'>出版社：</view>
-<view class='title_provide'>ISBN：</view>
-<view class='title_provide'>装帧：</view>
+
+<view><text class='title_provide'>原价：<text>{{book.price}}</text></text></view>
+<view><text class='title_provide'>作者：<text>{{book.writer}}</text></text></view>
+<view><text class='title_provide'>ISBN：<text>{{book.isbn}}</text></text></view>
 
 <!--评分-->
 <view class='score'>
 <view style='font-size:16px; color:#BBA27C; float:left; margin-left:20px; margin-top:14px;'>书友评分：</view>
-<view style='font-size:16px; color:#BBA27C; float:left; margin-left:5px; margin-top:14px;'>9.8分</view>
+<view style='font-size:16px; color:#BBA27C; float:left; margin-left:5px; margin-top:14px;'><text>{{book.score}}</text>分</view>
 <view class='score_star'><image src='../../image/score.png' style='height: 16px;width: 98px;'></image></view>
 </view>
 

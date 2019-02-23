@@ -1,7 +1,7 @@
 <!--图片-->
 <view class='bookimg'>
 <view class='img'>
-<image src='../../image/1.jpg'></image>
+<image src='{{note.image}}'></image>
 </view>
 </view>
 
@@ -14,15 +14,15 @@
 
 <!--标题-->
 <view>
-<view style='font-size:22px;font-weight:bold;margin-left:20px;margin-top:20px;'>资料名</view>
-<view class='bookstar'><image class='img_star' src='../../image/star.png'></image><text>8</text></view>
+<view class='note-title'>{{note.title}}</view>
+<view class='bookstar'><image class='img_star' src='../../image/star.png'></image><text>{{note.point}}</text></view>
 </view>
-<view class='title_provide'>提供者：</view>
+<text class='title_provide'>提供者：<text>{{note.provider}}</text></text>
 
 <!--评分-->
 <view class='score'>
 <view style='font-size:16px; color:#BBA27C; float:left; margin-left:20px; margin-top:14px;'>书友评分：</view>
-<view style='font-size:16px; color:#BBA27C; float:left; margin-left:5px; margin-top:14px;'>9.8分</view>
+<text style='font-size:16px; color:#BBA27C; float:left; margin-left:5px; margin-top:14px;'><text>{{note.score}}</text>分</text>
 <view class='score_star'><image src='../../image/score.png' style='height: 16px;width: 98px;'></image></view>
 </view>
 

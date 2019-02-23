@@ -57,10 +57,10 @@
 
           <image bindtap='bookviewdetail' src="{{item.image}}"></image>
           <view style='margin-left:13px; width:40%;'>
-            <view style='font-size:16px; margin-bottom:5px;'>{{item.title}}</view>
-            <view style='font-size:14px; color:#5A5A5A;'>{{item.writer}}</view>
+            <text class='book-title-text'>{{item.title}}</text>
+            <text class='book-title-text' style='font-size:14px; color:#5A5A5A;'>{{item.writer}}</text>
           </view>
-          <button class='my-tab-btn' bindtap='scoreinput'>评分</button>
+          <button class='my-tab-btn' bindtap='scoreinput' data-bookid='{{item.id}}' data-type='1'>评分</button>
 
         </view>
       </view>
@@ -79,10 +79,10 @@
 
           <image bindtap='bookviewdetail' src="{{item.image}}"></image>
           <view style='margin-left:13px; width:40%;'>
-            <view style='font-size:16px; margin-bottom:5px;'>{{item.title}}</view>
-            <view style='font-size:14px; color:#5A5A5A;'>{{item.writer}}</view>
+            <text class='book-title-text'>{{item.title}}</text>
+            <text class='book-title-text' style='font-size:14px; color:#5A5A5A;'>{{item.provider}}</text>
           </view>
-          <button class='my-tab-btn' bindtap='scoreinput'>评分</button>
+          <button class='my-tab-btn' bindtap='scoreinput' data-noteid='{{item._id}}' data-type='2'>评分</button>
 
         </view>
       </view>
@@ -105,5 +105,5 @@
     </view>
   </view>
 
-  <input class='score-input' type='text' placeholder=" 请输入评价" auto-focus/>
+  <input bindinput="inputtext" class='score-input' type='text' placeholder=" 请输入评价" auto-focus></input>
 </modal>

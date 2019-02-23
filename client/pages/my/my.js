@@ -1,16 +1,22 @@
-const db = wx.cloud.database();
-const myinfoCollection = db.collection('my_info');
-const mybookCollection = db.collection('my_book');
-const mynoteCollection = db.collection('my_note');
-const booklistCollection = db.collection('booklist');
-const notelistCollection = db.collection('note');
-const mypointCollection = db.collection('my_point');
+const db = wx.cloud.database()
+const myinfoCollection = db.collection('my_info')
+const mynoteCollection = db.collection('my_note')
+const changeCollection = db.collection('book_changed')
+const notelistCollection = db.collection('note')
+const mypointCollection = db.collection('my_point')
+const bookcomCollection = db.collection('book_comment')
+const notecomCollection = db.collection('note_comment')
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
+    comtext: '',
+    type: '',
+    bookid: '',
+    noteid: '',
+    openid: '',
     currentData: 0,
     scoreput: true,
     point: 0,
@@ -42,12 +48,24 @@ Page({
     }
   },
 
-  scoreinput: function() {
+  inputtext: function(e) {
+    this.data.comtext = e.detail.value;
+  },
 
+  scoreinput: function(e) {
+    var type = e.currentTarget.dataset.type;
+    if (type == 1) {
+      this.setData({
+        bookid: e.currentTarget.dataset.bookid
+      })
+    } else if (type == 2) {
+      this.setData({
+        noteid: e.currentTarget.dataset.noteid
+      })
+    }
     this.setData({
-
-      scoreput: !this.data.scoreput
-
+      scoreput: !this.data.scoreput,
+      type: type
     })
 
   },
@@ -64,10 +82,36 @@ Page({
 
   },
 
-  //确认
+  //确认评分
 
   scoreconfirm: function() {
     var that = this;
+    var type = that.data.type;
+
+    if (type == 1) {
+      bookcomCollection.add({
+        data: {
+          // _openid: that.data.openid,
+          bookid: that.data.bookid,
+          com_text: that.data.comtext,
+          score: that.data.flag,
+        }
+      }).then().catch(e => {
+        console.error(e)
+      });
+    } else if (type == 2) {
+      notecomCollection.add({
+        data: {
+          // _openid: that.data.openid,
+          note_id: that.data.noteid,
+          com_text: that.data.comtext,
+          score: that.data.flag,
+        }
+      }).then().catch(e => {
+        console.error(e)
+      });
+    }
+
     wx.showToast({
         title: '发布成功',
         icon: 'success',
@@ -75,7 +119,11 @@ Page({
         mask: false,
         success: function() {
           that.setData({
-            flag: 5
+            comtext: '',
+            flag: 5,
+            noteid: '',
+            bookid: '',
+            type: ''
           })
         }
       }),
@@ -121,118 +169,111 @@ Page({
     });
   },
 
-  onLoad: function (options) {
+  onLoad: function(options) {
+    //获得当前openid缓存
+    try {
+      const value = wx.getStorageSync('openid')
+      if (value) {
+        this.setData({
+          openid: value
+        })
+      }
+    } catch (e) {
+      console.error(e)
+    }
     var book1 = [];
     var note2 = [];
-    var openId;
-    wx.cloud.callFunction({
-      name: 'getUserInfo',
-      complete: res => {
-        openId = res.result.openId;
-        //查找对应用户的书架
-        mybookCollection.where({
-          _openid: openId
-        }).get().then(res1 => {
+    var openId = this.data.openid;
+    //查找对应用户的书架
+    changeCollection.where({
+      asker_id: openId,
+      state: 4
+    }).get().then(res1 => {
 
-          for (var i = 0; i < res1.data.length; i++) {
-            booklistCollection.where({
-              isbn: res1.data[i].isbn
-            }).get().then(res2 => {
-              //console.log(res2.data[0]);
-              book1 = book1.concat(res2.data[0]);
-              //console.log(book1);
-              this.setData({
-                book: book1
-              })
-            }).catch(e => {
-              console.error(e)
-            });
-          }
+      if (res1.data.length) {
+        this.setData({
+          bookhasList: true
+        })
+      }
+      this.setData({
+        book: res1.data
+      });
 
+    }).catch(e => {
+      console.error(e)
+    });
+
+    //查找对应用户的资料
+    mynoteCollection.where({
+      _openid: openId
+    }).get().then(res1 => {
+
+      for (var i = 0; i < res1.data.length; i++) {
+        notelistCollection.where({
+          _id: res1.data[i].note_id
+        }).get().then(res2 => {
+          //console.log(res2.data[0]);
+          note2 = note2.concat(res2.data[0]); //连接数组
           this.setData({
-            bookhasList:true
+            note: note2
           })
-
         }).catch(e => {
           console.error(e)
         });
+      }
 
-        //查找对应用户的资料
-        mynoteCollection.where({
-          _openid: openId
-        }).get().then(res1 => {
+      this.setData({
+        notehasList: true
+      })
 
-          for (var i = 0; i < res1.data.length; i++) {
-            notelistCollection.where({
-              _id: res1.data[i].note_id
-            }).get().then(res2 => {
-              //console.log(res2.data[0]);
-              note2 = note2.concat(res2.data[0]); //连接数组
-              this.setData({
-                note: note2
-              })
-            }).catch(e => {
-              console.error(e)
-            });
-          }
+    }).catch(e => {
+      console.error(e)
+    });
 
-          this.setData({
-            notehasList: true
-          })
+    //查找用户积分
+    mypointCollection.where({
+      _openid: openId
+    }).get().then(res => {
+      // console.log(res.data[0].point);
+      this.setData({
+        point: res.data[0].point
+      })
+    })
 
-        }).catch(e => {
-          console.error(e)
-        });
 
-        //查找用户积分
-        mypointCollection.where({
-          _openid: openId
-        }).get().then(res=>{
-          // console.log(res.data[0].point);
-          this.setData({
-            point:res.data[0].point
-          })
+  },
+
+
+
+  getInfo: function(result) {
+    var openId = this.data.openid;
+
+    myinfoCollection.where({
+      _openid: openId
+    }).count().then(res => {
+      if (res.total == 0) {
+        myinfoCollection.add({
+          data: result.detail.userInfo
+        }).then().catch(err => {
+          console.error(err)
         })
       }
     });
-    
-  },
 
-  
-
-  getInfo: function(result) {
-    wx.cloud.callFunction({
-      name: 'getUserInfo',
-      complete: res => {
-        var openId = res.result.openId;
-
-        myinfoCollection.where({
-          _openid: openId
-        }).count().then(res => {
-          if (res.total == 0) {
-            myinfoCollection.add({
-              data: result.detail.userInfo
-            }).then().catch(err => {
-              console.error(err)
-            })
+    mypointCollection.where({
+      _openid: openId
+    }).count().then(res => {
+      if (res.total == 0) {
+        mypointCollection.add({
+          data: {
+            point: 18
           }
-        });
-
-        mypointCollection.where({
-          _openid: openId
-        }).count().then(res => {
-          if (res.total == 0) {
-            mypointCollection.add({
-              data:{
-                point: 18
-              }
-            }).then().catch(err => {
-              console.error(err)
-            })
-          }
-        });
+        }).then().catch(err => {
+          console.error(err)
+        })
       }
-    })
+    });
+
 
   }
 

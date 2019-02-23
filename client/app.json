@@ -30,7 +30,7 @@
       },
       {
         "pagePath": "pages/book/book",
-        "text": "换书",
+        "text": "分享",
         "iconPath": "image/书.png",
         "selectedIconPath": "image/书2.png"
       },

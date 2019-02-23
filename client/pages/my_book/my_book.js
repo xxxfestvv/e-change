@@ -1,14 +1,14 @@
 const db = wx.cloud.database();
 const changeCollection = db.collection('book_changed');
 const unchangeCollection = db.collection('book_unchanged');
-const booklistCollection = db.collection('booklist');
-const notelistCollection = db.collection('note');
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
+    openid: '',
+    cancleid: '',
     currentData: 0,
     goodsid: '',
     scoreput: true,
@@ -17,19 +17,18 @@ Page({
     cancleput: true,
     cbook: [],
     ubook: [],
-    unote: [],
-    chasList: false,          // 列表是否有数据
-    uhasList: false,          // 列表是否有数据
+    chasList: false, // 列表是否有数据
+    uhasList: false, // 列表是否有数据
   },
   //获取当前滑块的index
-  bindchange: function (e) {
+  bindchange: function(e) {
     const that = this;
     that.setData({
       currentData: e.detail.current
     })
   },
   //点击切换，滑块index赋值
-  checkCurrent: function (e) {
+  checkCurrent: function(e) {
     const that = this;
 
     if (that.data.currentData === e.target.dataset.current) {
@@ -42,7 +41,7 @@ Page({
     }
   },
 
-  scoreinput: function (e) {
+  scoreinput: function(e) {
 
     var that = this;
     var goodsId = e.currentTarget.dataset.goodsid;
@@ -51,7 +50,7 @@ Page({
     this.setData({
 
       scoreput: !this.data.scoreput,
-      goodsid:goodsId
+      goodsid: goodsId
 
     })
 
@@ -59,7 +58,7 @@ Page({
 
   //取消按钮
 
-  scorecancel: function () {
+  scorecancel: function() {
 
     this.setData({
 
@@ -71,17 +70,26 @@ Page({
 
   //确认
 
-  scoreconfirm: function (e) {
-    
-    console.log(this.data.defaultpoint);
-    console.log(this.data.goodsid);
+  scoreconfirm: function(e) {
+    var that=this;
 
+    wx.cloud.callFunction({
+      name: 'updateplace',
+      data:{
+        provider_id: that.data.openid,
+        id:that.data.goodsid,
+        place:that.data.defaultpoint
+      },
+    }).then(res=>{
+      console.log(res.result);
+      that.onLoad()
+    }).catch(console.error);
+    // 更新操作放到云函数才行
 
     this.setData({
-
       scoreput: true
-
     })
+
 
   },
 
@@ -93,18 +101,22 @@ Page({
   },
 
   mySelect(e) {
-    var name = e.currentTarget.dataset.name
+    var name = e.currentTarget.dataset.name;
     this.setData({
       defaultpoint: name,
       select: false
     })
   },
 
-  bookcancle: function () {
+  bookcancle: function(e) {
+
+    var cancleid = e.currentTarget.dataset.id;
+    // console.log(cancleid);
 
     this.setData({
 
-      cancleput: !this.data.cancleput
+      cancleput: !this.data.cancleput,
+      cancleid: cancleid
 
     })
 
@@ -112,101 +124,72 @@ Page({
 
   //确认
 
-  cancleconfirm: function () {
+  cancleconfirm: function() {
+    
+    unchangeCollection.doc(this.data.cancleid).remove().then(res=>{
+      console.log(res);
+    })
 
     this.setData({
-
       cancleput: true
-
     })
 
   },
 
+  canclecancel: function() {
+    this.setData({
+      cancleput: true
+    })
+  },
+
   onLoad: function(options) {
-    var tmp1=[], tmp2=[];
-    var openId;
-    wx.cloud.callFunction({
-      name: 'getUserInfo',
-      complete: res => {
-        openId = res.result.openId;
-        //查找已换取
-        changeCollection.where({
-          provider_id: openId
-        }).get().then(res1 => {
-          if (res1.data.length) {
-            this.setData({
-              chasList: true
-            })
-          }
-
-          for (var i = 0; i < res1.data.length; i++) {
-
-              booklistCollection.where({
-                _id: res1.data[i].id
-              }).get().then(res2 => {
-                // console.log(res2.data);
-                tmp1 = tmp1.concat(res2.data[0]);
-                // console.log(tmp1);
-                this.setData({
-                  cbook: tmp1
-                })
-              }).catch(e => {
-                console.error(e)
-              });
-            
-          }
-        }).catch(e => {
-          console.error(e)
-        });
-
-        var tmp3 = [], tmp4 = [];
-        //查找未被换取
-        unchangeCollection.where({
-          provider_id: openId
-        }).get().then(res1 => {
-          if (res1.data.length) {
-            this.setData({
-              uhasList: true
-            })
-          }
-
-          for (var i = 0; i < res1.data.length; i++) {
-
-            if (res1.data[i].type == 1) {
-              booklistCollection.where({
-                _id: res1.data[i].id
-              }).get().then(res2 => {
-                // console.log(res2.data);
-                tmp3 = tmp3.concat(res2.data[0]);
-                // console.log(tmp1);
-                this.setData({
-                  ubook: tmp3
-                })
-              }).catch(e => {
-                console.error(e)
-              });
-            }
-            else if (res1.data[i].type == 2) {
-              notelistCollection.where({
-                _id: res1.data[i].id
-              }).get().then(res2 => {
-                //console.log(res2.data[0]);
-                tmp4 = tmp4.concat(res2.data[0]);
-                //console.log(book1);
-                this.setData({
-                  unote: tmp4
-                })
-              }).catch(e => {
-                console.error(e)
-              });
-            }
-
-          }
-        }).catch(e => {
-          console.error(e)
-        });
-
+    //获得当前openid缓存
+    try {
+      const value = wx.getStorageSync('openid')
+      if (value) {
+        this.setData({
+          openid: value
+        })
       }
+    } catch (e) {
+      console.error(e)
+    }
+    var tmp1 = [],
+      tmp2 = [];
+    var openId = this.data.openid;
+    //查找已换取
+    changeCollection.where({
+      provider_id: openId,
+      state: 1
+    }).get().then(res1 => {
+      if (res1.data.length) {
+        this.setData({
+          chasList: true
+        })
+      }
+
+      this.setData({
+        cbook: res1.data
+      });
+    }).catch(e => {
+      console.error(e)
+    });
+
+    //查找未被换取
+    unchangeCollection.where({
+      provider_id: openId
+    }).get().then(res1 => {
+      if (res1.data.length) {
+        this.setData({
+          uhasList: true
+        })
+      }
+
+      this.setData({
+        ubook: res1.data
+      });
+    }).catch(e => {
+      console.error(e)
     });
   }
 

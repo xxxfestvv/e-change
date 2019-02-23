@@ -1,12 +1,14 @@
 var app = getApp()
 var that
-
+const db = wx.cloud.database()
+const noteCollection = db.collection('note')
 Page({
   /**
    * 页面的初始数据
    */
   data: {
-
+    note: [],
+    noteid: '',
     DataSource: [
       {
         isF: true,
@@ -15,7 +17,22 @@ Page({
     ]
   },
 
-
+  onLoad: function (options) {
+    this.setData({
+      noteid: options.noteid
+    });
+    console.log(this.data.noteid);
+    noteCollection.where({
+      _id: options.noteid
+    }).get().then(res => {
+      // console.log(res.data)
+      this.setData({
+        note: res.data[0]
+      })
+    }).catch(e => {
+      console.error(e);
+    });
+  },
 
   //展开  收起
   change: function (e) {

@@ -7,7 +7,9 @@
 <!--本周书目-->
 <swiper-item>
 <scroll-view scroll-y='true' style='height:100%'>
-<image src='../../image/change.png' mode='aspectFit' style='width:100%;height:100%;position:fixed;top:-30px;'></image>
+<image src='../../image/change1.png' style='width:100%;' mode='widthFix'></image>
+<image src='../../image/change2.png' style='width:100%;' mode='widthFix'></image>
+<image src='../../image/change3.png' style='width:100%;' mode='widthFix'></image>
 <button class='isbn-btn' bindtap='getScancode'>扫一扫识别书码</button>
 <view class='isbn-hand' bindtap='isbninput'>手动输入ISBN号</view>
 <modal hidden="{{isbnput}}" title="请输入ISBN号" confirm-text="提交" cancel-text="取消" bindcancel="isbncancel" bindconfirm="isbnconfirm">

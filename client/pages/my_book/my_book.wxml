@@ -16,7 +16,7 @@
             <text class='order-book-text'>{{item.title}}
             </text>
           </view>
-          <button class='order-btn' catchtap='scoreinput' data-goodsid="{{item._id}}">我已发货</button>
+          <button class='order-btn' catchtap='scoreinput' data-goodsid="{{item.id}}">我已发货</button>
         </view>
 
         <view class='order-book' wx:for='{{cnote}}' wx:key='{{index}}'>
@@ -48,17 +48,9 @@
             <text class='order-book-text'>{{item.title}}
             </text>
           </view>
-          <button class='order-btn' bindtap='bookcancle'>取消发布</button>
+          <button class='order-btn' bindtap='bookcancle' data-id='{{item._id}}'>取消发布</button>
         </view>
-
-        <view class='order-book' wx:for='{{unote}}' wx:key='{{index}}'>
-          <image src='{{item.image}}'></image>
-          <view style='margin-left:13px; width:40%;'>
-            <text class='order-book-text'>{{item.title}}
-            </text>
-          </view>
-          <button class='order-btn' bindtap='bookcancle'>取消发布</button>
-        </view>
+        
       </view>
 
       <view wx:else>
@@ -86,5 +78,5 @@
 
 </modal>
 
-<modal hidden="{{cancleput}}" title="已取消" confirm-text="确认" bindconfirm="cancleconfirm" no-cancel='true'>
+<modal hidden="{{cancleput}}" title="是否取消？" confirm-text="确认" cancel-text="取消" bindcancel="canclecancel" bindconfirm="cancleconfirm">
 </modal>
