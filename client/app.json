@@ -12,7 +12,8 @@
     "pages/my_book/my_book",
     "pages/my_set/my_set",
     "pages/book_nav/book_nav",
-    "pages/search_detail/search_detail"
+    "pages/search_detail/search_detail",
+    "pages/book_rule/book_rule"
   ],
   "window": {
     "backgroundTextStyle": "light",

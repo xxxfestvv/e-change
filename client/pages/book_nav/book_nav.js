@@ -1,53 +1,61 @@
+const db = wx.cloud.database()
+const currentCollection = db.collection('currentlist')
+const noteCollection = db.collection('note')
+const bookCollection = db.collection('booklist')
+const uchangeCollection = db.collection('book_unchanged')
+
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    carts: [],               // 购物车列表
-    hasList: false,          // 列表是否有数据
-    totalPrice: 0,           // 总价，初始为0
+    carts: [], // 购物车列表
+    hasList: false, // 列表是否有数据
+    totalPrice: 0, // 总价，初始为0
     totalBook: 0,
-    booknavput: true
+    booknavput: true,
+    openid: ''
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
-    this.setData({
-      title: options.title
-    })
-  },
-
-  onShow() {
-    this.setData({
-      hasList: true,
-      carts: [
-        { id: 1, title: '书名', writer:'作者', image: '../../image/1.jpg', price: 2 },
-        { id: 2, title: '书名', writer: '作者', image: '../../image/2.jpg', price: 4 },
-        { id: 3, title: '资料名', writer: '提供者', image: '../../image/4.jpg', price: 8 }
-      ]
-    });
-    this.getTotalPrice();
-  },
-
-  /**
-   * 计算总价
-   */
-  getTotalPrice() {
-    let carts = this.data.carts;                  // 获取购物车列表
-    let total = 0;
-    let total_num = 1;
-    for (let i = 0; i < carts.length; i++) {         // 循环列表得到每个数据
-        total += carts[i].price;   // 所有价格加起来
-        total_num += i;
+  onLoad: function(options) {
+    //获得当前openid缓存
+    try {
+      const value = wx.getStorageSync('openid')
+      if (value) {
+        this.setData({
+          openid: value
+        })
+      }
+    } catch (e) {
+      console.error(e)
     }
-    this.setData({                                // 最后赋值到data中渲染到页面
-      carts: carts,
-      totalPrice: total,
-      totalBook: total_num
-    });
+    var openId = this.data.openid;
+
+    currentCollection.where({
+      _openid: openId
+    }).get().then(res => {
+      // console.log(res.data);
+      let total = 0;
+
+      for (let i = 0; i < res.data.length; i++) { // 循环列表得到每个数据
+        total += res.data[i].point; // 所有价格加起来
+      }
+      this.setData({ // 最后赋值到data中渲染到页面
+        totalPrice: total,
+        hasList: true,
+        carts: res.data,
+        totalBook: res.data.length
+      });
+    })
+
+    // this.setData({
+    //   title: options.title
+    // })
+
   },
 
   /**
@@ -62,20 +70,31 @@ Page({
     });
     if (!carts.length) {
       this.setData({
-        hasList: false
+        hasList: false,
+        totalBook: 0,
+        totalPrice: 0
       });
     } else {
-      this.getTotalPrice();
+      let total = 0;
+
+      for (let i = 0; i < carts.length; i++) { // 循环列表得到每个数据
+        total += carts[i].point; // 所有价格加起来
+      }
+      this.setData({
+        totalBook: carts.length,
+        totalPrice: total
+      })
     }
   },
 
+  //提交
   booknavadd: function() {
     wx.reLaunch({
       url: '../book/book'
     })
   },
 
-  modalinput: function () {
+  modalinput: function() {
 
     this.setData({
 
@@ -87,7 +106,7 @@ Page({
 
   //取消按钮
 
-  cancel: function () {
+  cancel: function() {
 
     this.setData({
 
@@ -99,7 +118,7 @@ Page({
 
   //确认
 
-  confirm: function () {
+  confirm: function() {
 
     this.setData({
 
@@ -109,7 +128,57 @@ Page({
 
   },
 
-  booknavup: function () {
+  booknavup: function() {
+
+    //获得当前openid缓存
+    try {
+      const value = wx.getStorageSync('openid')
+      if (value) {
+        this.setData({
+          openid: value
+        })
+      }
+    } catch (e) {
+      console.error(e)
+    }
+
+    var openId = this.data.openid;
+    let carts = this.data.carts;
+
+    for (let i = 0; i < carts.length; i++) {
+      if (carts[i].type == 1) {
+        bookCollection.where({
+          isbn: carts[i].isbn
+        }).get().then(res => {
+          // console.log(res.data[0]._id);
+          let book_id = res.data[0]._id;
+          uchangeCollection.add({
+            data: {
+              type: 1,
+              provider_id: openId,
+              title: carts[i].title,
+              image: carts[i].image,
+              id: book_id
+            }
+          }).then(res1 => {
+            // console.log(res1)
+          }).catch(e => { console.error(e) })
+        }).catch(e => { console.error(e) })
+
+      } else if (carts[i].type == 2) {
+        uchangeCollection.add({
+          data: {
+            type: 2,
+            provider_id: openId,
+            title: carts[i].title,
+            image: carts[i].image,
+            id: carts[i].note_id
+          }
+        }).then(res1 => {
+          // console.log(res1)
+        }).catch(e => { console.error(e) })
+      }
+    }
 
     this.setData({
 
@@ -121,17 +190,17 @@ Page({
 
   //确认
 
-  confirm: function () {
+  confirm: function() {
     wx.redirectTo({
-      url: '../my_book/my_book'
-    }),
+        url: '../my_book/my_book'
+      }),
 
       this.setData({
 
-      booknavput: true
+        booknavput: true
 
       })
 
   },
-  
+
 })

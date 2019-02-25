@@ -1,67 +1,71 @@
 <view class='topTabSwiper'>
-<view class='tab  {{currentData == 0 ? "tabBorer" : ""}}'  data-current = "0" bindtap='checkCurrent'>分享书目</view>
-<view class='tab  {{currentData == 1 ? "tabBorer" : ""}}'  data-current = "1" bindtap='checkCurrent'>分享资料</view>
+  <view class='tab  {{currentData == 0 ? "tabBorer" : ""}}' data-current="0" bindtap='checkCurrent'>分享书目</view>
+  <view class='tab  {{currentData == 1 ? "tabBorer" : ""}}' data-current="1" bindtap='checkCurrent'>分享资料</view>
 </view>
 <!--分栏-->
 <swiper current="{{currentData}}" class='swiper' style="height:505px;" duration="300" bindchange="bindchange">
-<!--本周书目-->
-<swiper-item>
-<scroll-view scroll-y='true' style='height:100%'>
-<image src='../../image/change1.png' style='width:100%;' mode='widthFix'></image>
-<image src='../../image/change2.png' style='width:100%;' mode='widthFix'></image>
-<image src='../../image/change3.png' style='width:100%;' mode='widthFix'></image>
-<button class='isbn-btn' bindtap='getScancode'>扫一扫识别书码</button>
-<view class='isbn-hand' bindtap='isbninput'>手动输入ISBN号</view>
-<modal hidden="{{isbnput}}" title="请输入ISBN号" confirm-text="提交" cancel-text="取消" bindcancel="isbncancel" bindconfirm="isbnconfirm">
-<input type='text'placeholder="请输入ISBN" auto-focus/>
-</modal>
-</scroll-view></swiper-item>
+  <!--本周书目-->
+  <swiper-item>
+    <scroll-view scroll-y='true' style='height:100%'>
+      <navigator url="../book_rule/book_rule" class='bookrule'>查看E交换平台规则 ></navigator>
+      <image src='../../image/change1.png' style='width:100%;' mode='widthFix' bindtap='getScancode'></image>
+      <image src='../../image/change2.png' style='width:100%;' mode='widthFix' bindtap='getPlaces'></image>
+      <image src='../../image/change3.png' style='width:100%;' mode='widthFix'></image>
+      <button class='isbn-btn' bindtap='getScancode'>扫一扫识别书码</button>
+      <view class='isbn-hand' bindtap='isbninput'>手动输入ISBN号</view>
+      <modal hidden="{{isbnput}}" title="请输入ISBN号" confirm-text="提交" cancel-text="取消" bindcancel="isbncancel" bindconfirm="isbnconfirm">
+        <input bindinput="isbntext" type='text' placeholder="请输入ISBN" auto-focus></input>
+      </modal>
+    </scroll-view>
+  </swiper-item>
 
-<!--资料分享-->
-<swiper-item>
-<scroll-view scroll-y='true' style='height:100%'>
-<!--封面-->
-<view class="uploader">
-    <view class='uploader-img'>
-        <image src='../../image/upload.png' style='height: 110px;width: 110px;'></image>
-    </view>
-    <button class="uploader-text" bindtap="doUpload">
-    <text>点击上传封面</text></button>
-    <view class="uploader-container" wx:if="{{imgUrl}}">
-        <image
-            class="uploader-image"
-            src="{{imgUrl}}"
-            mode="aspectFit"
-            bindtap="previewImg"
-        ></image>
-    </view>
-</view>
-<!--简介-->
-<view class="uploader">
-<view class='uploader-img'>
-<image src='../../image/upload.png' style='height: 110px;width: 110px;'></image>
-</view>
-<button class="uploader-text" bindtap="modalinput">
-<text>点击上传简介</text></button>
-<modal hidden="{{hiddenmodalput}}" title="请输入简介" confirm-text="提交" cancel-text="取消" bindcancel="cancel" bindconfirm="confirm">
-<input type='text'placeholder="请输入内容" auto-focus/>
-</modal>
-</view>
-<!--链接-->
-<view class="uploader">
-<view class='uploader-img'>
-<image src='../../image/upload.png' style='height: 110px;width: 110px;'></image>
-</view>
-<button class="uploader-text" bindtap="modalinput">
-<text>点击上传链接</text></button>
-<modal hidden="{{hiddenmodalput}}" title="请输入云盘链接" confirm-text="提交" cancel-text="取消" bindcancel="cancel" bindconfirm="confirm">
-<input type='text'placeholder="请输入内容" auto-focus/>
-</modal>
-</view>
+  <!--资料分享-->
+  <swiper-item>
+    <scroll-view scroll-y='true' style='height:100%'>
+      <navigator url="../book_rule/book_rule" class='bookrule'>查看E交换平台规则 ></navigator>
+      <!--封面-->
+      <view class="uploader">
+        <view class='uploader-img'>
+          <image src='../../image/upload.png' style='height: 110px;width: 110px;'></image>
+        </view>
+        <button class="uploader-text" bindtap="doUpload">
+          <text>点击上传封面</text>
+        </button>
+        <view class="uploader-container" wx:if="{{imgUrl}}">
+          <image class="uploader-image" src="{{imgUrl}}" mode="aspectFit" bindtap="previewImg"></image>
+        </view>
+      </view>
+      <!--简介-->
+      <view class="uploader">
+        <view class='uploader-img'>
+          <image src='../../image/upload.png' style='height: 110px;width: 110px;'></image>
+        </view>
+        <button class="uploader-text" bindtap="modalinput">
+          <text>点击上传简介</text>
+        </button>
+        <modal hidden="{{hiddenmodalput}}" title="请输入简介" confirm-text="提交" cancel-text="取消" bindcancel="cancel" bindconfirm="confirm">
+          <input bindinput="notetitle" type='text' placeholder="请输入资料名" auto-focus></input>
+          <input bindinput="notepro" type='text' placeholder="请输入您的昵称" auto-focus></input>
+          <input bindinput="notetext" type='text' placeholder="请输入内容" auto-focus></input>
+        </modal>
+      </view>
+      <!--链接-->
+      <view class="uploader">
+        <view class='uploader-img'>
+          <image src='../../image/upload.png' style='height: 110px;width: 110px;'></image>
+        </view>
+        <button class="uploader-text" bindtap="linkinput">
+          <text>点击上传链接</text>
+        </button>
+        <modal hidden="{{linkmodalput}}" title="请输入云盘链接" confirm-text="提交" cancel-text="取消" bindcancel="linkcancel" bindconfirm="linkconfirm">
+          <input bindinput="linktext" type='text' placeholder="请输入内容" auto-focus></input>
+        </modal>
+      </view>
 
-<view style='display:flex;justify-content: center;'>
-<button class='book-btn' bindtap='addnote'>上传</button>
-</view>
+      <view style='display:flex;justify-content: center;'>
+        <button class='book-btn' bindtap='addnote'>上传</button>
+      </view>
 
-</scroll-view></swiper-item>
+    </scroll-view>
+  </swiper-item>
 </swiper>

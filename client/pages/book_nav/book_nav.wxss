@@ -18,15 +18,21 @@
   text-align: center;
 }
 
+.cart-book-detail{
+  width: 75%;
+}
+
 .cart-detail{
   display: flex;
   justify-content:space-between;
+  height: 130rpx;
+  /* width: 70%; */
 }
 
 .cart-price {
   display: flex;
   margin-top: 10px;
-  margin-left: 140px;
+  margin-left: 120px;
 }
 
 .cart-price image {
@@ -37,6 +43,8 @@
 
 .cart-del {
   margin-top: 15px;
+  padding-right: 10px;
+  width: 44rpx;
 }
 
 .cart-wrter-name {
@@ -47,6 +55,12 @@
 .cart-pro-price {
   font-size: 18px;
   line-height: 45rpx;
+  padding-right: 10px;
+}
+
+.cart-pro-name {
+  font-size: 16px;
+  width: 450rpx;
 }
 
 .book-nav-footer {

@@ -1,18 +1,21 @@
+<scroll-view scroll-y="true" style="height: 900rpx;">
 <view wx:if="{{hasList}}">
   <view class='book-nav-book' wx:for='{{carts}}' wx:key='{{index}}'>
+  <view style='width:25%'>
   <image class="cart-thumb" src="{{item.image}}"></image>
+  </view>
   <view class='cart-book-detail'>
     <view class='cart-detail'>
       <view style='margin-top:15px;'>
       <view class="cart-pro-name">{{item.title}}</view>
       <view class="cart-wrter-name">{{item.writer}}</view>
       </view>
-      <text class="cart-del" bindtap="deleteList" data-index="{{index}}">×</text>
+      <view class="cart-del" bindtap="deleteList" data-index="{{index}}">×</view>
     </view>
     <view class='cart-price'>
       <view style='font-size:14px; color:#848484;margin-right:8px;'>智能评估可换</view>
       <image src='../../image/star.png'></image>
-      <text class="cart-pro-price">{{item.price}}</text>
+      <text class="cart-pro-price">{{item.point}}</text>
     </view>
   </view>  
   </view>
@@ -20,7 +23,7 @@
 <view wx:else>
    <view class="cart-no-data">购物车是空的哦~</view>
 </view>
-
+</scroll-view>
 <!--规则-->
 <navigator class='book-nav-rule'>
 <view style='font-size:14px; color:#5A5A5A;'>了 解 更 多 规 则</view>

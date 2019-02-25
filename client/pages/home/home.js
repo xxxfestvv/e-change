@@ -36,14 +36,18 @@ Page({
         book: res.data,
         bookhasList: true
       })
-    }).catch(e => {console.error(e)});
+    }).catch(e => {
+      console.error(e)
+    });
 
     noteCollection.skip(5).limit(10).get().then(res => {
       this.setData({
         note: res.data,
         notehasList: true
       })
-    }).catch(e => {console.error(e)});
+    }).catch(e => {
+      console.error(e)
+    });
 
 
   },
@@ -80,14 +84,14 @@ Page({
   click_book: function(e) {
     var bookid = e.currentTarget.dataset.bookid;
     wx.navigateTo({
-      url: '../detail_book/detail_book?bookid='+bookid
+      url: '../detail_book/detail_book?bookid=' + bookid
     })
   },
 
   click_note: function(e) {
     var noteid = e.currentTarget.dataset.noteid;
     wx.navigateTo({
-      url: '../detail_note/detail_note?noteid='+noteid
+      url: '../detail_note/detail_note?noteid=' + noteid
     })
   }
 })

@@ -128,6 +128,7 @@ Page({
     
     unchangeCollection.doc(this.data.cancleid).remove().then(res=>{
       console.log(res);
+      this.onLoad();
     })
 
     this.setData({
