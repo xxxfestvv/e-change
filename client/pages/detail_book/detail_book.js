@@ -2,6 +2,9 @@ var app = getApp()
 var that
 const db = wx.cloud.database()
 const bookCollection = db.collection('booklist')
+const cartCollection = db.collection('cart_item')
+
+
 Page({
   /**
    * 页面的初始数据
@@ -52,13 +55,32 @@ Page({
     })
   },
 
-  addtocar: function () {
-    wx.showToast({
-      title: '已加入购物车',
-      icon: 'success',
-      duration: 1500,
-      mask: false
-    })
+  addtocar: function (e) {
+    var bookid = e.currentTarget.dataset.id;
+    let that = this;
+    let book = that.data.book;
+    cartCollection.add({
+      data: {
+        id: book._id,
+        image: book.image,
+        num: 1,
+        point: book.point,
+        selected: true,
+        title: book.title,
+        type: 1
+      }
+    }).then (res => {
+      console.log(res);
+      wx.showToast({
+        title: '已加入购物车',
+        icon: 'success',
+        duration: 1500,
+        mask: false
+      })
+    }).catch(e => {console.error(e)})
+
+
+    
   }
 
 })

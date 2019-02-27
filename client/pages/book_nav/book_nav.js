@@ -180,6 +180,18 @@ Page({
       }
     }
 
+    wx.cloud.callFunction({
+      name: 'deletCurrentlist',
+
+      data: {
+        openid: openId
+      },
+    }).then(res => {
+      console.log(res)
+    }).catch(e => {
+      console.error(e)
+    })
+    
     this.setData({
 
       booknavput: !this.data.booknavput

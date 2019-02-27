@@ -266,7 +266,7 @@ Page({
       if (res.total == 0) {
         mypointCollection.add({
           data: {
-            point: 18
+            point: 200
           }
         }).then().catch(err => {
           console.error(err)

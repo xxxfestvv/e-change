@@ -11,17 +11,16 @@
       <text class="cart-pro-name">{{item.title}}</text>
       <view style='display:flex;margin-right:18px;'>
       <image src='../../image/star.png' style='margin-right:8px;width:19px; height:19px;'></image>
-      <text class="cart-pro-price">{{item.price}}</text>
+      <text class="cart-pro-price">{{item.point}}</text>
       </view>
       </view>
 
       <view class="cart-count-box">
-        <text class="cart-count-down" bindtap="minusCount" data-obj="{{obj}}" data-index="{{index}}">-</text>
+        <text class="cart-count-down" bindtap="minusCount" data-id="{{item._id}}" data-index='{{index}}'>-</text>
         <text class="cart-count-num">{{item.num}}</text>
-        <text class="cart-count-add" bindtap="addCount" data-index="{{index}}">+</text>
+        <text class="cart-count-add" bindtap="addCount" data-id="{{item._id}}" data-index='{{index}}'>+</text>
       </view>
-
-      <text class="cart-del" bindtap="deleteList" data-index="{{index}}">×</text>
+      <text class="cart-del" bindtap="deleteList" data-index="{{item._id}}">×</text>
 
     </view>
   </view>
@@ -43,6 +42,6 @@
     <view>{{totalPrice}}</view>
     </view>
 
-    <button class='cart-footer-btn'>立即换购</button>
+    <button class='cart-footer-btn' bindtap='buyit'>立即换购</button>
     
 </view>

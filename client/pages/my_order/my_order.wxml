@@ -13,7 +13,15 @@
           <image bindtap='bookviewdetail' src="{{item.image}}"></image>
           <view style='margin-left:13px; width:40%;'>
             <text class='book-title-text'>{{item.title}}</text>
+            <view wx:if='{{item.state==1}}'>
+            <text style='font-size:12px; color:#9CB382;'>已下单，等待发货</text>
+            </view>
+            <view wx:elif='{{item.state==2}}'>
+            <text style='font-size:12px; color:#9CB382;'>已发货，等待管理员确认</text>
+            </view>
+            <view wx:elif='{{item.state==3}}'>
             <text style='font-size:12px; color:#9CB382;'>已到达{{item.place}}提货点</text>
+            </view>
           </view>
           <button class='order-btn' bindtap='scoreinput' data-id='{{item.id}}'>确认收货</button>
         </view>

@@ -2,6 +2,7 @@ var app = getApp()
 var that
 const db = wx.cloud.database()
 const noteCollection = db.collection('note')
+const cartCollection = db.collection('cart_item')
 Page({
   /**
    * 页面的初始数据
@@ -21,7 +22,7 @@ Page({
     this.setData({
       noteid: options.noteid
     });
-    console.log(this.data.noteid);
+    // console.log(this.data.noteid);
     noteCollection.where({
       _id: options.noteid
     }).get().then(res => {
@@ -53,12 +54,28 @@ Page({
   },
 
   addtocar: function () {
-    wx.showToast({
-      title: '已加入购物车',
-      icon: 'success',
-      duration: 1500,
-      mask: false
-    })
+    // var noteid = e.currentTarget.dataset.id;
+    let that = this;
+    let note = that.data.note;
+    cartCollection.add({
+      data: {
+        id: note._id,
+        image: note.image,
+        num: 1,
+        point: note.point,
+        selected: true,
+        title: note.title,
+        type: 2
+      }
+    }).then(res => {
+      // console.log(res);
+      wx.showToast({
+        title: '已加入购物车',
+        icon: 'success',
+        duration: 1500,
+        mask: false
+      })
+    }).catch(e => { console.error(e) })
   }
 
 })

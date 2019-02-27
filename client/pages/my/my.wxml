@@ -5,7 +5,7 @@
       <image class='my-info' src='../../image/通知.png'></image>
     </navigator>
     <navigator url="../my_set/my_set">
-      <image class='my-set' src='../../image/设置.png'></image>
+      <image class='my-set' src='../../image/活动.png'></image>
     </navigator>
   </view>
   <view class='my-head'>

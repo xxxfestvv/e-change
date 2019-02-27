@@ -83,14 +83,14 @@ Page({
   //点击图片跳转详情页
   click_book: function(e) {
     var bookid = e.currentTarget.dataset.bookid;
-    wx.navigateTo({
+    wx.redirectTo({
       url: '../detail_book/detail_book?bookid=' + bookid
     })
   },
 
   click_note: function(e) {
     var noteid = e.currentTarget.dataset.noteid;
-    wx.navigateTo({
+    wx.redirectTo({
       url: '../detail_note/detail_note?noteid=' + noteid
     })
   }
