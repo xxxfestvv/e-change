@@ -3,14 +3,14 @@
 <view class='tab  {{currentData == 1 ? "tabBorer" : ""}}'  data-current = "1" bindtap='checkCurrent'>资料</view>
 </view>
 <!--分栏-->
-<swiper current="{{currentData}}" class='swiper' style="height:505px;" duration="300" bindchange="bindchange">
+<swiper current="{{currentData}}" class='swiper' style="height:1100rpx;" duration="300" bindchange="bindchange">
 <!--本周书目-->
 <swiper-item>
 <scroll-view scroll-y='true' style='height:100%'>
 
   <view wx:if="{{bookhasList}}">
     <view class='book-nav-book' wx:for='{{book}}' wx:key='{{index}}'>
-    <image bindtap='bookviewdetail' class="cart-thumb" src="{{item.image}}"></image>
+    <image bindtap='bookviewdetail' class="cart-thumb" src="{{item.image}}" data-bookid='{{item._id}}'></image>
     <view class='cart-book-detail'>
 
       <view class='cart-detail'>
@@ -23,9 +23,9 @@
       <view class='cart-price'>
         <view style='display:flex;'>
         <image src='../../image/star.png' style='width: 20px; height: 20px; margin-right: 3px;'></image>
-        <text class="cart-pro-price">{{item.price}}</text>
+        <text class="cart-pro-price">{{item.point}}</text>
         </view>
-        <button bindtap='addtocar'>加入购物车</button>
+        <button bindtap='bookaddtocar' data-bookid='{{item._id}}'>加入购物车</button>
       </view>
     
     </view>  
@@ -45,7 +45,7 @@
 <scroll-view scroll-y='true' style='height:100%'>
     <view wx:if="{{notehasList}}">
     <view class='book-nav-book' wx:for='{{note}}' wx:key='{{index}}'>
-    <image bindtap='noteviewdetail' class="cart-thumb" src="{{item.image}}"></image>
+    <image bindtap='noteviewdetail' class="cart-thumb" src="{{item.image}}" data-noteid='{{item._id}}'></image>
     <view class='cart-book-detail'>
 
       <view class='cart-detail'>
@@ -57,10 +57,10 @@
 
       <view class='cart-price'>
         <view style='display:flex;'>
-        <image src='../../image/star.png' style='width: 20px; height: 20px; margin-right: 3px;' bindtap='noteviewdetail'></image>
-        <text class="cart-pro-price">{{item.price}}</text>
+        <image src='../../image/star.png' style='width:20px; height:20px; margin-right:3px;'></image>
+        <text class="cart-pro-price">{{item.point}}</text>
         </view>
-        <button bindtap='addtocar'>加入购物车</button>
+        <button bindtap='noteaddtocar' data-noteid='{{item._id}}'>加入购物车</button>
       </view>
 
     </view>  
@@ -68,11 +68,7 @@
   </view>
   <view wx:else>
     <view class="cart-no-data">哎呀，没有你想要的资料呢~</view>
-    <view class='cart-find-book' bindtap='findnote'>去求资料 -></view>
   </view>
 
-  <modal hidden="{{noteput}}" title="我要求资料" confirm-text="提交" cancel-text="取消" bindcancel="notecancel" bindconfirm="noteconfirm">
-  <input type='text' placeholder="请输入资料科目" auto-focus/>
-  </modal>
 </scroll-view></swiper-item>
 </swiper>

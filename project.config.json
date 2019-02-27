@@ -16,7 +16,7 @@
 		"autoAudits": false
 	},
 	"compileType": "miniprogram",
-	"libVersion": "2.2.5",
+	"libVersion": "2.4.4",
 	"appid": "wx65687e745d830ca5",
 	"projectname": "blog",
 	"isGameTourist": false,
