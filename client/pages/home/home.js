@@ -93,5 +93,12 @@ Page({
     wx.redirectTo({
       url: '../detail_note/detail_note?noteid=' + noteid
     })
-  }
+  },
+
+  click_event: function (e) {
+    var eventid = e.currentTarget.dataset.eventid;
+    wx.redirectTo({
+      url: '../detail_event/detail_event?eventid=' + eventid
+    })
+  }  
 })

@@ -1,22 +1,17 @@
 var app = getApp()
 var that
 const db = wx.cloud.database()
-const noteCollection = db.collection('note')
-const cartCollection = db.collection('cart_item')
-const comCollection = db.collection('note_comment')
-const recCollection = db.collection('recommend_book')
+const eventCollection = db.collection('event')
+const myeventCollection = db.collection('my_event')
+
+
 Page({
   /**
    * 页面的初始数据
    */
   data: {
-    note: [],
-    noteid: '',
-    notescore: '',
-    comment: [],
-    notescore: '',
-    recommend: [],
-    comhasList: false,
+    event: [],
+    eventid: '',
     DataSource: [
       {
         isF: true,
@@ -27,39 +22,19 @@ Page({
 
   onLoad: function (options) {
     this.setData({
-      noteid: options.noteid
+      eventid: options.eventid
     });
-    // console.log(this.data.noteid);
-    noteCollection.where({
-      _id: options.noteid
+    // console.log(this.data.bookid);
+    eventCollection.where({
+      _id: options.eventid
     }).get().then(res => {
       // console.log(res.data)
-      var score = Math.round(res.data[0].score / 2);
       this.setData({
-        note: res.data[0],
-        notescore: score
+        event: res.data[0]
       })
     }).catch(e => {
       console.error(e);
     });
-
-    comCollection.where({
-      note_id: options.noteid
-    }).get().then(res => {
-      if (res.data.length) {
-        // console.log(res.data);
-        this.setData({
-          comment: res.data,
-          comhasList: true
-        })
-      }
-    }).catch(console.error);
-
-    recCollection.get().then(res => {
-      this.setData({
-        recommend: res.data
-      })
-    }).catch(console.error)
   },
 
   //展开  收起
@@ -67,42 +42,40 @@ Page({
     var that = this;
     var DataSource = that.data.DataSource;
     var row = DataSource[e.currentTarget.dataset.index];
-    console.log("**********:" + row)
+    // console.log("**********:" + row)
     row.isF = !row.isF;
     that.setData({
       DataSource: DataSource,
     })
   },
 
-  gotohome: function() {
+  gotohome: function () {
     wx.reLaunch({
       url: '../home/home'
     })
   },
 
-  addtocar: function () {
-    // var noteid = e.currentTarget.dataset.id;
+  addtoevent: function (e) {
+
     let that = this;
-    let note = that.data.note;
-    cartCollection.add({
+    let event = that.data.event;
+    var eventid = that.data.eventid;
+    myeventCollection.add({
       data: {
-        id: note._id,
-        image: note.image,
-        num: 1,
-        point: note.point,
-        selected: true,
-        title: note.title,
-        type: 2
+        id: eventid,
+        image: event.image,
+        title: event.title
       }
     }).then(res => {
       // console.log(res);
       wx.showToast({
-        title: '已加入购物车',
+        title: '已加入我的活动',
         icon: 'success',
         duration: 1500,
         mask: false
       })
     }).catch(e => { console.error(e) })
+
   }
 
 })

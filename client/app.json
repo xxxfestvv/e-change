@@ -13,7 +13,8 @@
     "pages/my_set/my_set",
     "pages/book_nav/book_nav",
     "pages/search_detail/search_detail",
-    "pages/book_rule/book_rule"
+    "pages/book_rule/book_rule",
+    "pages/detail_event/detail_event"
   ],
   "window": {
     "backgroundTextStyle": "light",

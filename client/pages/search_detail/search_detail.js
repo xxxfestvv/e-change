@@ -2,6 +2,8 @@ const db = wx.cloud.database()
 const bookCollection = db.collection('booklist')
 const noteCollection = db.collection('note')
 const carCollection = db.collection('cart_item')
+const askCollection = db.collection('ask_book')
+
 Page({
 
   /**
@@ -13,7 +15,8 @@ Page({
     bookhasList: false, // 列表是否有数据
     notehasList: false, // 列表是否有数据
     currentData: 0,
-    bookput: true
+    bookput: true,
+    isbn:''
   },
 
   //获取当前滑块的index
@@ -109,6 +112,18 @@ Page({
 
   //确认
   bookconfirm: function() {
+    var that = this;
+    askCollection.add({
+      data:{
+        isbn: that.data.isbn
+      }
+    }).then(res => {
+      wx.showToast({
+        title: '已提交',
+        icon: 'success',
+        duration: 2000
+      })
+    }).catch(console.error)
     this.setData({
       bookput: true
     })
@@ -167,6 +182,13 @@ Page({
       icon: 'success',
       duration: 1500,
       mask: false
+    })
+  },
+
+  getisbn: function(e) {
+    var isbn = e.detail.value;
+    this.setData({
+      isbn: isbn
     })
   }
 

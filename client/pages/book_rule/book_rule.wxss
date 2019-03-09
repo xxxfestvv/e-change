@@ -1,0 +1,50 @@
+.tab{
+  float: left;
+  width: 45%;
+  text-align: center;
+  margin-left: 8px;
+  margin-right: 8px;
+  border-bottom: 1px solid #e6e6ea;
+  line-height: 80rpx;
+  font-size: 18px;
+}
+
+.topTabSwiper{
+  margin-top: 10px;
+  zoom: 1;
+}
+
+.topTabSwiper:after{
+  content: ""; 
+  clear: both;
+  display: block;
+}
+
+.tabBorer{
+  color: #8BC34A;
+  border-bottom: 1px solid #8BC34A;
+  font-weight: bold;
+}
+
+.swiper{
+  width: 100%;
+}
+
+.rule {
+  width: 100%;
+}
+
+.rule-title {
+  width: 100%;
+  font-size: 16px;
+  font-weight: bold;
+  float: left;
+  margin: 10px 0 5px 10px;
+}
+
+.rule-text {
+  font-size: 14px;
+  color: #5A5A5A;
+  line-height: 60rpx;
+  margin: 0 15px 0 15px;
+}

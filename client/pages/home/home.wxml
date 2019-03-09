@@ -12,7 +12,7 @@
 <!--轮播图-->
 <scroll-view scroll-x="true" style="white-space:nowrap;width:99%;">
   <view wx:for='{{event}}' wx:key='{{index}}' class='image_scroll'>
-    <image src='{{item.image}}' mode="widthFix" style='width:100%'></image>
+    <image src='{{item.image}}' mode="widthFix" style='width:100%' bindtap='click_event' data-eventid='{{item._id}}'></image>
   </view>
 </scroll-view>
 

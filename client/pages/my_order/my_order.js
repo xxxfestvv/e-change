@@ -13,6 +13,8 @@ Page({
     openid: '',
     currentData: 0,
     scoreput: true,
+    provider: '',
+    point: 0,
     book: [],
     note: [],
     bookhasList: false, // 列表是否有数据
@@ -42,11 +44,18 @@ Page({
   scoreinput: function(e) {
     var that = this;
     var id = e.currentTarget.dataset.id;
-    this.setData({
-      scoreput: !this.data.scoreput,
-      id:id
-    })
+    var provider = e.currentTarget.dataset.provider;
 
+    booklistCollection.where({
+      _id:id
+    }).get().then(res => {
+      this.setData({
+        scoreput: !this.data.scoreput,
+        id: id,
+        provider: provider,
+        point: res.data[0].point
+      })
+    })
   },
 
   //取消按钮
@@ -72,7 +81,14 @@ Page({
         id: that.data.id, //changebook的id,booklist的_id
       },
     }).then(res => {
-      console.log(res.result);
+      // console.log(res.result);
+      wx.cloud.callFunction({
+        name:'updatePoint',
+        data:{
+          provider: that.data.provider,
+          point: that.data.point,
+        },
+      }).then(console.log).catch(console.error);
       that.onLoad()
     }).catch(console.error);
 

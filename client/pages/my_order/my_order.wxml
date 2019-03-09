@@ -23,7 +23,7 @@
             <text style='font-size:12px; color:#9CB382;'>已到达{{item.place}}提货点</text>
             </view>
           </view>
-          <button class='order-btn' bindtap='scoreinput' data-id='{{item.id}}'>确认收货</button>
+          <button class='order-btn' bindtap='scoreinput' data-id='{{item.id}}' data-provider='{{item.provider_id}}'>确认收货</button>
         </view>
       </view>
       <view wx:else>

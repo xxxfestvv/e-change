@@ -35,9 +35,21 @@
         <view class='my-info-book' wx:for='{{ask}}' wx:key='{{index}}'>
           <image src='../../image/通知1.png'></image>
           <view class='my-info-message'>
+            <view wx:if='{{item.type==1}}'>
             <view>您的供书被换取！</view>
-            <view style='color:#9CB382; font-size:13px;margin-top:5px;' bindtap='viewask'>您的《
+            <view class='my-info-text'>您的《
               <text>{{item.title}}</text>》已被换取，快提交到最近供书点吧～</view>
+            </view>
+            <view wx:elif='{{item.type==2}}'>
+            <view>您的供书已确认收货！</view>
+            <view class='my-info-text'>您的《
+              <text>{{item.title}}</text>》已确认收货，积分已到账～</view>
+            </view>
+            <view wx:elif='{{item.type==3}}'>
+            <view>您的资料已被拍下！</view>
+            <view class='my-info-text'>您的《
+              <text>{{item.title}}</text>》已被拍下，积分已到账～</view>
+            </view>
           </view>
         </view>
       </view>

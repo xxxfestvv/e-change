@@ -4,6 +4,8 @@ const pointCollection = db.collection('my_point')
 const cbookCollection = db.collection('book_changed')
 const ubookCollection = db.collection('book_unchanged')
 const mynoteCollection = db.collection('my_note')
+const noteCollection = db.collection('note')
+const alertCollection = db.collection('my_alert')
 Page({
 
   /**
@@ -207,11 +209,28 @@ Page({
                       state: 1,
                       title: curcarts[i].title
                     }
+                  }).then().catch(console.error);
+
+                  alertCollection.add({
+                    data: {
+                      _openid: providerid,
+                      title: curcarts[i].title,
+                      type:1
+                    }
                   }).then(console.log).catch(console.error);
 
                   cartCollection.doc(curcarts[i]._id).remove().then(console.log).catch(console.error);
                 } else {
                   var providerid = 'oY0xd5ZiPpA8SgyDXKtdLZYYz3Eg';
+
+                  alertCollection.add({
+                    data: {
+                      _openid: providerid,
+                      title: curcarts[i].title,
+                      type: 1
+                    }
+                  }).then(console.log).catch(console.error);
+                  
                   cbookCollection.add({
                     data: {
                       asker_id: openId,
@@ -234,13 +253,40 @@ Page({
             }
             //如果是笔记的话
             else {
+              noteCollection.where({
+                _id:curcarts[i].id
+              }).get().then(res => {
+                var point = res.data[0].point;
+                var provider = res.data[0]._openid;
+                var title = res.data[0].title;
+
+                alertCollection.add({
+                  data: {
+                    _openid:provider,
+                    title:title,
+                    type:3
+                  }
+                }).then().catch(console.error);
+
+                wx.cloud.callFunction({
+                  name: 'updatePoint',
+                  data: {
+                    provider: provider,
+                    point: point
+                  }
+                }).then(console.log).catch(console.error);
+              }).catch(console.error);
+
               mynoteCollection.add({
                 data:{
                   note_id:curcarts[i].id
                 }
               }).then(res => {
+                
                 cartCollection.doc(curcarts[i]._id).remove().then(console.log).catch(console.error);
-              }).catch(console.error)
+              }).catch(console.error);
+
+
             }
           }
         }

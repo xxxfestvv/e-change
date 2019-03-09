@@ -55,7 +55,7 @@
       <view wx:if="{{bookhasList}}">
         <view class='my-tab-book' wx:for='{{book}}' wx:key='{{index}}'>
 
-          <image bindtap='bookviewdetail' src="{{item.image}}"></image>
+          <image bindtap='bookviewdetail' src="{{item.image}}" data-id='{{item.id}}'></image>
           <view style='margin-left:13px; width:40%;'>
             <text class='book-title-text'>{{item.title}}</text>
             <text class='book-title-text' style='font-size:14px; color:#5A5A5A;'>{{item.writer}}</text>
@@ -77,7 +77,7 @@
       <view wx:if="{{notehasList}}">
         <view class='my-tab-book' wx:for='{{note}}' wx:key='{{index}}'>
 
-          <image bindtap='bookviewdetail' src="{{item.image}}"></image>
+          <image bindtap='noteviewdetail' src="{{item.image}}" data-id='{{item._id}}'></image>
           <view style='margin-left:13px; width:40%;'>
             <text class='book-title-text'>{{item.title}}</text>
             <text class='book-title-text' style='font-size:14px; color:#5A5A5A;'>{{item.provider}}</text>
@@ -105,5 +105,5 @@
     </view>
   </view>
 
-  <input bindinput="inputtext" class='score-input' type='text' placeholder=" 请输入评价" auto-focus></input>
+  <input bindinput="inputtext" class='score-input' type='text' placeholder=" 请输入评价"></input>
 </modal>

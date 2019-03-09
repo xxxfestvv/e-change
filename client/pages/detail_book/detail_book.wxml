@@ -1,79 +1,119 @@
 <!--图片-->
 <view class='bookimg'>
-<view class='img'>
-<image src='{{book.image}}'></image>
-</view>
+  <view class='img'>
+    <image src='{{book.image}}'></image>
+  </view>
 </view>
 
 <!--固定底部-->
 <view class='bottom-fix'>
-<image src='../../image/主页.png' class='bottom-img' bindtap='gotohome'></image>
-<view><button class='bottom-button' bindtap='addtocar' data-id='{{book._id}}'>加入购物车</button></view>
+  <image src='../../image/主页.png' class='bottom-img' bindtap='gotohome'></image>
+  <view>
+    <button class='bottom-button' bindtap='addtocar' data-id='{{book._id}}'>加入购物车</button>
+  </view>
 </view>
 
 
 <!--标题-->
 <view>
-<view class='book-title'>{{book.title}}</view>
-<view class='bookstar'><image class='img_star' src='../../image/star.png'></image><text>8</text></view>
+  <view class='book-title'>{{book.title}}</view>
+  <view class='bookstar'>
+    <image class='img_star' src='../../image/star.png'></image>
+    <text>{{book.point}}</text>
+  </view>
 </view>
 
-<view><text class='title_provide'>原价：<text>{{book.price}}</text></text></view>
-<view><text class='title_provide'>作者：<text>{{book.writer}}</text></text></view>
-<view><text class='title_provide'>ISBN：<text>{{book.isbn}}</text></text></view>
+<view>
+  <text class='title_provide'>原价：<text>{{book.price}}</text></text>
+</view>
+<view>
+  <text class='title_provide'>作者：<text>{{book.writer}}</text></text>
+</view>
+<view>
+  <text class='title_provide'>ISBN：<text>{{book.isbn}}</text></text>
+</view>
 
 <!--评分-->
 <view class='score'>
-<view style='font-size:16px; color:#BBA27C; float:left; margin-left:20px; margin-top:14px;'>书友评分：</view>
-<view style='font-size:16px; color:#BBA27C; float:left; margin-left:5px; margin-top:14px;'><text>{{book.score}}</text>分</view>
-<view class='score_star'><image src='../../image/score.png' style='height: 16px;width: 98px;'></image></view>
+  <view style='font-size:16px; color:#BBA27C; float:left; margin-left:20px; margin-top:14px;'>书友评分：</view>
+  <view style='font-size:16px; color:#BBA27C; float:left; margin-left:5px; margin-top:14px;'>
+    <text>{{book.score}}</text>分</view>
+  <view class='score_star'>
+    <view wx:if='{{bookscore==1}}'>
+      <image src='../../image/s1.png' style='height: 16px;width: 16px;'></image>
+    </view>
+    <view wx:elif='{{bookscore==2}}'>
+      <image src='../../image/s2.png' style='height: 16px;width: 36px;'></image>
+    </view>
+    <view wx:elif='{{bookscore==3}}'>
+      <image src='../../image/s3.png' style='height: 16px;width: 56px;'></image>
+    </view>
+    <view wx:elif='{{bookscore==4}}'>
+      <image src='../../image/s4.png' style='height: 16px;width: 76px;'></image>
+    </view>
+    <view wx:elif='{{bookscore==5}}'>
+      <image src='../../image/s5.png' style='height: 16px;width: 96px;'></image>
+    </view>
+  </view>
 </view>
 
 <!--简介-->
 <view class='list' wx:for='{{DataSource}}' wx:key="index">
-    <!-- 内容 start-->
-    <view class='user-content-title'>作品简介</view>
-    <view class="user-content-view {{item.isF?'hide':'show'}}">
-    <text class="user-content">{{item.content}}</text>
-    </view>
-    <!-- 内容 end-->
+  <!-- 内容 start-->
+  <view class='user-content-title'>作品简介</view>
+  <view class="user-content-view {{item.isF?'hide':'show'}}">
+    <text class="user-content">{{book.text}}</text>
+  </view>
+  <!-- 内容 end-->
 
-    <!-- 展开 收起 strat-->
-    <view bindtap="change" class="state" data-index="{{index}}">{{item.isF?'展开':'收起'}}</view>
-    <!-- 展开 收起  end -->
+  <!-- 展开 收起 strat-->
+  <view bindtap="change" class="state" data-index="{{index}}">{{item.isF?'展开':'收起'}}</view>
+  <!-- 展开 收起  end -->
 </view>
 
 <!--评论-->
 <view class='comment-title'>推荐点评</view>
-<!--评论1-->
-<view class='comment-container'>
-<image src='../../image/头1.jpg' class='comment-img'></image>
-<view class='comment-middle'>
-<view class='comment-name'>
-<view style='font-size:14px;color:black;'>昵称</view>
-<image src='../../image/score2.png' class='comment-star'></image>
+
+<!--评论-->
+<view wx:if='{{comhasList}}'>
+  <view class='comment-container' wx:for='{{comment}}' wx:key='{{index}}'>
+    <image src='{{item.avartar}}' class='comment-img'></image>
+    <view class='comment-middle'>
+      <view class='comment-name'>
+        <view style='font-size:14px;color:black;'>{{item.nickname}}</view>
+        <view wx:if='{{item.score==1}}'>
+          <image src='../../image/score1.png' class='comment-star' style='height: 12px;width: 12px;'></image>
+        </view>
+        <view wx:elif='{{item.score==2}}'>
+          <image src='../../image/score2.png' class='comment-star' style='height: 12px;width: 27px;'></image>
+        </view>
+        <view wx:elif='{{item.score==3}}'>
+          <image src='../../image/score3.png' class='comment-star' style='height: 12px;width: 42px;'></image>
+        </view>
+        <view wx:elif='{{item.score==4}}'>
+          <image src='../../image/score4.png' class='comment-star' style='height: 12px;width: 57px;'></image>
+        </view>
+        <view wx:elif='{{item.score==5}}'>
+          <image src='../../image/score5.png' class='comment-star' style='height: 12px;width: 72px;'></image>
+        </view>
+
+      </view>
+      <view style='font-size:12px; color:#5A5A5A;margin-top:8px;'>{{item.com_text}}</view>
+    </view>
+  </view>
 </view>
-<view style='font-size:12px; color:#5A5A5A;margin-top:8px;'>作品很棒！很棒！</view>
+<view wx:else>
+  <view class='comment-nocom'>目前还没有评论哦～</view>
 </view>
-</view>
-<!--评论2-->
-<view class='comment-container'>
-<image src='../../image/头2.jpg' class='comment-img'></image>
-<view class='comment-middle'>
-<view class='comment-name'>
-<view style='font-size:14px;color:black;'>昵称</view>
-<image src='../../image/score2.png' class='comment-star'></image>
-</view>
-<view style='font-size:12px; color:#5A5A5A;margin-top:8px;'>作品很棒！很棒！</view>
-</view>
-</view>
+
 
 <!--推荐-->
 <view class='comment-title' style='margin-top:20px;'>猜你喜欢</view>
 <view class='reco-row'>
-<view class='reco-col'>
-<view class='col-3'><image src='../../image/4.jpg' class='reco-img'></image><view class='reco-title'>推荐资料</view></view>
-<view class='col-3'><image src='../../image/2.jpg' class='reco-img'></image><view class='reco-title'>推荐资料</view></view>
-<view class='col-3'><image src='../../image/3.jpg' class='reco-img'></image><view class='reco-title'>推荐资料</view></view>
-</view>
+  <view class='reco-col'>
+    <view class='col-3' wx:for='{{recommend}}' wx:key='{{index}}'>
+      <image src='{{item.image}}' class='reco-img'></image>
+      <view class='reco-title'>{{item.title}}</view>
+    </view>
+  </view>
 </view>

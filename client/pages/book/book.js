@@ -373,5 +373,11 @@ Page({
 
   notepro: function(e) {
     this.data.note_pro = e.detail.value;
+  },
+
+  getRules: function() {
+    wx.navigateTo({
+      url: '../book_rule/book_rule'
+    })
   }
 })

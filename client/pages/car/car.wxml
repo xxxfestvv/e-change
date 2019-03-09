@@ -1,4 +1,4 @@
-
+<navigator url="../book_rule/book_rule" class='bookrule'>查看E交换平台规则 ></navigator>
 <view wx:if="{{hasList}}">
   <view class="cart-box">
     <view class="cart-list" wx:for="{{carts}}" wx:key="{{index}}">

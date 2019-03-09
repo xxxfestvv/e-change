@@ -15,6 +15,8 @@ Page({
     comtext: '',
     type: '',
     bookid: '',
+    avartar: '',
+    nickname: '',
     noteid: '',
     openid: '',
     currentData: 0,
@@ -95,6 +97,8 @@ Page({
           bookid: that.data.bookid,
           com_text: that.data.comtext,
           score: that.data.flag,
+          avartar: that.data.avartar,
+          nickname: that.data.nickname,
         }
       }).then().catch(e => {
         console.error(e)
@@ -106,6 +110,8 @@ Page({
           note_id: that.data.noteid,
           com_text: that.data.comtext,
           score: that.data.flag,
+          avartar: that.data.avartar,
+          nickname: that.data.nickname,
         }
       }).then().catch(e => {
         console.error(e)
@@ -238,8 +244,17 @@ Page({
       this.setData({
         point: res.data[0].point
       })
-    })
-
+    });
+    
+    //查找头像地址和昵称
+    myinfoCollection.where({
+      _openid: openId
+    }).get().then(res => {
+      this.setData({
+        avartar: res.data[0].avatarUrl,
+        nickname: res.data[0].nickName
+      })
+    }).catch(console.error);
 
   },
 
@@ -273,8 +288,20 @@ Page({
         })
       }
     });
+  },
 
+  bookviewdetail: function(e) {
+    var bookid = e.currentTarget.dataset.id;
+    wx.navigateTo({
+      url: '../detail_book/detail_book?bookid='+bookid
+    })
+  },
 
+  noteviewdetail: function(e) {
+    var noteid = e.currentTarget.dataset.id;
+    wx.navigateTo({
+      url: '../detail_note/detail_note?noteid='+noteid
+    })
   }
 
 })

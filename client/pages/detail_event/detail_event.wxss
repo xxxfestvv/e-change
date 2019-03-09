@@ -26,8 +26,8 @@
 }
 
 .bookimg {
-  height: 235px;
-  background: #dae8cb;
+  height: 217px;
+  background: #e3f0f8;
 }
 
 .img {
@@ -37,8 +37,8 @@
 }
 
 .img image {
-  height: 174px;
-  width: 125px;
+  height: 156px;
+  width: 336px;
   box-shadow: 0px 0px 12px 1px rgba(90, 90, 90, 0.836);
 }
 
@@ -83,8 +83,8 @@
 }
 
 .user-content-title {
-  font-size: 12px;
-  color: #5a5a5a;
+  font-size: 14px;
+  color: #bba27c;
   margin-bottom: 12px;
 }
 
@@ -121,8 +121,8 @@
 }
 
 .comment-title {
-  font-size: 12px;
-  color: #5a5a5a;
+  font-size: 14px;
+  color: #bba27c;
   margin: 13px 20px 20px 20px;
 }
 
@@ -141,6 +141,8 @@
 }
 
 .comment-star {
+  height: 12px;
+  width: 73.5px;
   float: left;
   margin-left: 8px;
 }
@@ -173,14 +175,6 @@
 
 .reco-title {
   font-size: 12px;
-  padding: 0 10px 0 10px;
-  text-overflow: -o-ellipsis-lastline;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-  align-content: center;
 }
 
 .book-title {
@@ -188,11 +182,6 @@
   font-weight: bold;
   margin-left: 20px;
   margin-top: 20px;
+  margin-bottom: 15px;
   padding-right: 30px;
-}
-
-.comment-nocom {
-  font-size: 14px;
-  color: #bba27c;
-  margin: 8px 0 8px 25px;
 }

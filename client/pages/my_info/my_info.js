@@ -1,6 +1,7 @@
-const db = wx.cloud.database();
-const myaskCollection = db.collection('ask_book');
-const bookCollection = db.collection('booklist');
+const db = wx.cloud.database()
+const myaskCollection = db.collection('ask_book')
+const bookCollection = db.collection('booklist')
+const alertCollection = db.collection('my_alert')
 
 Page({
 
@@ -12,18 +13,18 @@ Page({
     scoreput: true,
     book: [],
     ask: [],
-    bookhasList: false,          // 列表是否有数据
-    askhasList: false,          // 列表是否有数据
+    bookhasList: false, // 列表是否有数据
+    askhasList: false, // 列表是否有数据
   },
   //获取当前滑块的index
-  bindchange: function (e) {
+  bindchange: function(e) {
     const that = this;
     that.setData({
       currentData: e.detail.current
     })
   },
   //点击切换，滑块index赋值
-  checkCurrent: function (e) {
+  checkCurrent: function(e) {
     const that = this;
 
     if (that.data.currentData === e.target.dataset.current) {
@@ -40,7 +41,7 @@ Page({
     var bookid = e.currentTarget.dataset.bookid;
     // console.log(bookid);
     wx.navigateTo({
-      url: '../detail_book/detail_book?bookid='+bookid
+      url: '../detail_book/detail_book?bookid=' + bookid
     })
   },
 
@@ -76,11 +77,13 @@ Page({
           isbn: res1.data[i].isbn
         }).get().then(res2 => {
           // console.log(res2.data[0]);
-          book1 = book1.concat(res2.data[0]); //连接数组
-          this.setData({
-            book: book1,
-            bookhasList: true
-          })
+          if (res2.data.length) {
+            book1 = book1.concat(res2.data[0]); //连接数组
+            this.setData({
+              book: book1,
+              bookhasList: true
+            })
+          }
         }).catch(e => {
           console.error(e)
         });
@@ -90,7 +93,18 @@ Page({
       console.error(e)
     });
 
+    alertCollection.where({
+      _openid: openId
+    }).get().then(res => {
+      if (res.data.length) {
+        this.setData({
+          ask: res.data,
+          askhasList: true
+        })
+      }
+    })
+
   }
 
-  
+
 })

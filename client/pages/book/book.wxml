@@ -10,11 +10,11 @@
       <navigator url="../book_rule/book_rule" class='bookrule'>查看E交换平台规则 ></navigator>
       <image src='../../image/change1.png' style='width:100%;' mode='widthFix' bindtap='getScancode'></image>
       <image src='../../image/change2.png' style='width:100%;' mode='widthFix' bindtap='getPlaces'></image>
-      <image src='../../image/change3.png' style='width:100%;' mode='widthFix'></image>
+      <image src='../../image/change3.png' style='width:100%;' mode='widthFix' bindtap='getRules'></image>
       <button class='isbn-btn' bindtap='getScancode'>扫一扫识别书码</button>
       <view class='isbn-hand' bindtap='isbninput'>手动输入ISBN号</view>
       <modal hidden="{{isbnput}}" title="请输入ISBN号" confirm-text="提交" cancel-text="取消" bindcancel="isbncancel" bindconfirm="isbnconfirm">
-        <input bindinput="isbntext" type='text' placeholder="请输入ISBN" auto-focus></input>
+        <input bindinput="isbntext" type='text' placeholder="请输入ISBN"></input>
       </modal>
     </scroll-view>
   </swiper-item>
@@ -44,9 +44,9 @@
           <text>点击上传简介</text>
         </button>
         <modal hidden="{{hiddenmodalput}}" title="请输入简介" confirm-text="提交" cancel-text="取消" bindcancel="cancel" bindconfirm="confirm">
-          <input bindinput="notetitle" type='text' placeholder="请输入资料名" auto-focus></input>
-          <input bindinput="notepro" type='text' placeholder="请输入您的昵称" auto-focus></input>
-          <input bindinput="notetext" type='text' placeholder="请输入内容" auto-focus></input>
+          <input bindinput="notetitle" type='text' placeholder="请输入资料名"></input>
+          <input bindinput="notepro" type='text' placeholder="请输入您的昵称"></input>
+          <input bindinput="notetext" type='text' placeholder="请输入内容"></input>
         </modal>
       </view>
       <!--链接-->
@@ -58,7 +58,7 @@
           <text>点击上传链接</text>
         </button>
         <modal hidden="{{linkmodalput}}" title="请输入云盘链接" confirm-text="提交" cancel-text="取消" bindcancel="linkcancel" bindconfirm="linkconfirm">
-          <input bindinput="linktext" type='text' placeholder="请输入内容" auto-focus></input>
+          <input bindinput="linktext" type='text' placeholder="请输入内容"></input>
         </modal>
       </view>
 

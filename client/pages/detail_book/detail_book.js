@@ -3,7 +3,8 @@ var that
 const db = wx.cloud.database()
 const bookCollection = db.collection('booklist')
 const cartCollection = db.collection('cart_item')
-
+const comCollection = db.collection('book_comment')
+const recCollection = db.collection('recommend_book')
 
 Page({
   /**
@@ -12,6 +13,10 @@ Page({
   data: {
     book:[],
     bookid:'',
+    comment:[],
+    bookscore: '',
+    recommend: [],
+    comhasList: false,
     DataSource: [
       {
         isF: true,
@@ -29,12 +34,33 @@ Page({
       _id: options.bookid
     }).get().then(res => {
       // console.log(res.data)
+      var score = Math.round(res.data[0].score/2);
+
       this.setData({
-        book: res.data[0]
+        book: res.data[0],
+        bookscore: score
       })
     }).catch(e=>{
       console.error(e);
     });
+
+    comCollection.where({
+      bookid: options.bookid
+    }).get().then(res => {
+      if(res.data.length){
+        // console.log(res.data);
+        this.setData({
+          comment: res.data,
+          comhasList: true
+        })
+      }
+    }).catch(console.error);
+
+    recCollection.get().then(res => {
+      this.setData({
+        recommend: res.data
+      })
+    }).catch(console.error)
   },
 
   //展开  收起
@@ -78,9 +104,15 @@ Page({
         mask: false
       })
     }).catch(e => {console.error(e)})
-
-
     
-  }
+  },
+
+  // viewdetail: function(e) {
+  //   var bookid = e.currentTarget.dataset.bookid;
+  //   console.log(bookid);
+  //   wx.navigateTo({
+  //     url: '../detail_book/detail_book?bookid=' + bookid
+  //   })
+  // }
 
 })

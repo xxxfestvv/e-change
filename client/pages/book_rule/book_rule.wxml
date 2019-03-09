@@ -1,0 +1,112 @@
+<view class='topTabSwiper'>
+  <view class='tab  {{currentData == 0 ? "tabBorer" : ""}}' data-current="0" bindtap='checkCurrent'>有关书</view>
+  <view class='tab  {{currentData == 1 ? "tabBorer" : ""}}' data-current="1" bindtap='checkCurrent'>有关资料</view>
+</view>
+<!--分栏-->
+<swiper current="{{currentData}}" class='swiper' style="height:1200rpx;" duration="300" bindchange="bindchange">
+  <!--书目-->
+  <swiper-item>
+    <scroll-view scroll-y='true' style='height:100%'>
+      <view class='rule'>
+        <view class='rule-title'>
+          1、E交换平台是什么？
+        </view>
+        <view class='rule-text'>
+          E交换平台提供在校高校学生日常书目资料交换服务：二手书交换、在线学习资料交换、公益活动换书发布等服务。
+        </view>
+      </view>
+
+      <view class='rule'>
+        <view class='rule-title'>
+          2、E交换平台如何进行二手书交换？
+        </view>
+        <view class='rule-text'>
+          换书：可以使用积分换取平台现有的书目（原始积分需在我的页面点击授权获取哦），换取后提供人发货至提书点，可去提书店自行领取。
+        </view>
+        <view class='rule-text'>
+          提供书：选择分享按钮后，可以扫码直接识别isbn号/手动输入isbn号添加到供书列表，提交后即可等待换书确认；当有用户换取书目后请去就近提书店交书，管理员确认已供书且用户确认收货后可获得对应的积分。
+        </view>
+      </view>
+
+      <view class='rule'>
+        <view class='rule-title'>
+          3、E交换平台的公益活动是什么？
+        </view>
+        <view class='rule-text'>
+          公益活动为线下的图书交换、图书角、知识分享等与书目资料相关的公益活动，旨在同学们交换书目的同时能够分享自己的见解与知识。管理员会定期发布公益活动通知，在首页可以点击对应活动图片了解活动详情选择是否参与，可以在「我的」页面取消参与活动。
+        </view>
+      </view>
+
+      <view class='rule'>
+        <view class='rule-title'>
+          4、E交换平台换书需要费用吗？
+        </view>
+        <view class='rule-text'>
+          不需要，完全公益性质。
+        </view>
+      </view>
+
+      <view class='rule'>
+        <view class='rule-title'>
+          5、E交换平台买的书可以退换货吗？
+        </view>
+        <view class='rule-text'>
+          非品相或质量问题，基本不可以退换货。因服务造成的品相不达标或其他质量问题，可以联系客服退积分处理。
+        </view>
+      </view>
+
+      <view class='rule'>
+        <view class='rule-title'>
+          6、书的价格是如何确定的？
+        </view>
+        <view class='rule-text'>
+          图书价格会根据库存和市场情况动态调整，扫码后可获得该本书当前的预估积分。
+        </view>
+      </view>
+
+      <view class='rule'>
+        <view class='rule-title'>
+          7、什么书不收？
+        </view>
+        <view class='rule-text'>
+          在提书点审核显示拒绝的就是暂时不收的。有影响阅读及封面完整和美观的破损、污渍、老化、异味；非卖品和非法出版物。
+        </view>
+      </view>
+    </scroll-view>
+  </swiper-item>
+
+  <!--资料-->
+  <swiper-item>
+    <scroll-view scroll-y='true' style='height:100%'>
+      <view class='rule'>
+        <view class='rule-title'>
+          1、E交换平台如何进行在线笔记交换？
+        </view>
+        <view class='rule-text'>
+          换笔记：可以使用积分换取平台现有的资料（原始积分需在我的页面点击授权获取哦），换取后在「我的订单」-「资料」页可以直接下载查看。
+        </view>
+        <view class='rule-text'>
+          提供笔记：选择分享按钮后，上传对应的图片/简介/下载链接后，若有人换取即可获得对应资料积分。
+        </view>
+      </view>
+
+      <view class='rule'>
+        <view class='rule-title'>
+          2、E交换平台买的笔记可以退吗？
+        </view>
+        <view class='rule-text'>
+          在线知识商品概不接受退货。
+        </view>
+      </view>
+
+      <view class='rule'>
+        <view class='rule-title'>
+          3、资料的价格是如何确定的？
+        </view>
+        <view class='rule-text'>
+          资料价格会根据资料页数、清晰程度、相关性等权值进行评估得到售卖积分。
+        </view>
+      </view>
+    </scroll-view>
+  </swiper-item>
+</swiper>

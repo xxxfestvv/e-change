@@ -1,27 +1,12 @@
-<view class='my-set-label'>
-  <view class='my-set-title'>我的昵称</view>
-  <view class='my-set-text'>{{nickname}}</view>
-
+<view wx:if="{{eventhasList}}">
+  <view class='order-book' wx:for='{{event}}' wx:key='{{index}}'>
+    <image bindtap='eventviewdetail' src="{{item.image}}" data-eventid='{{item.id}}'></image>
+    <view style='margin-left:5px;'>
+      <text class='book-title-text'>{{item.title}}</text>
+      <button class='order-btn' bindtap='cancleit' data-id='{{item._id}}'>取消参加</button>
+    </view>
+  </view>
 </view>
-
-<view class='my-set-label'>
-  <view class='my-set-title'>性别</view>
-  <view class='my-set-text'>{{gender}}</view>
-
+<view wx:else>
+  <view style='padding:40rpx 0;color: #999;text-align: center;'>还未参加活动哦～</view>
 </view>
-
-<view class='my-set-label'>
-  <view class='my-set-title'>个人签名</view>
-  <view class='my-set-text'>{{sign}}</view>
-
-</view>
-
-<view class='my-set-bottom'>
-<button style='background-color:white;' bindtap='setbtn'>修改</button>
-</view>
-
-<modal hidden="{{btnput}}" title="修改" confirm-text="确认" cancel-text="取消" bindcancel="btncancel" bindconfirm="btnconfirm">
-<input value='{{nickname}}'></input>
-<input value='{{gender}}'></input>
-<input value='{{sign}}'></input>
-</modal>

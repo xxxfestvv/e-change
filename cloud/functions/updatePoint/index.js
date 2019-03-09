@@ -3,16 +3,16 @@ const cloud = require('wx-server-sdk')
 
 cloud.init()
 const db = cloud.database()
+const _ = db.command
 
 // 云函数入口函数
-exports.main = async(event, context) => {
+exports.main = async (event, context) => {
   try {
-    return await db.collection('book_changed').where({
-      asker_id: event.openid,
-      id: event.id,
+    return await db.collection('my_point').where({
+      _openid: event.provider
     }).update({
       data: {
-        state: 4
+        point: _.inc(event.point)
       }
     })
   } catch (e) {
