@@ -1,0 +1,64 @@
+.hd_out_box{
+  margin-left: 24rpx;
+  margin-top: 20rpx;
+  margin-right: 24rpx;
+  margin-bottom: 20rpx;
+  padding: 30rpx 20rpx 0rpx 30rpx;
+  width: 656rpx;
+  height: 240rpx;
+  line-height: 40rpx;
+  box-shadow: 4rpx 4rpx 28rpx 0rpx rgba(170, 170, 170, 1);
+}
+
+.hd_in_info{
+  font-size: 28rpx;
+}
+
+.hd_in_sit{
+  width: 370rpx;
+  height: 150rpx;
+  margin-left:20rpx;
+  margin-top:30rpx;
+  float:left
+}
+
+.hd_in_title{
+  font-size: 32rpx;
+}
+
+.hd_in_num{
+  font-size: 24rpx;
+  line-height: 72rpx;
+}
+
+.hd_pic{
+  width: 118rpx;
+  height:170rpx;
+  margin-top: 20rpx;
+  float: left;
+  background-color: #8BC34A;
+}
+.hd_in_button{
+  width:116rpx;
+  height:60rpx;
+  font-size:28rpx;
+  line-height:60rpx;
+  text-align: center;
+  margin-top:54rpx;
+  background-image: "../../images/1.1.png";
+  color:#000;
+}
+
+.hd_in_clean{
+    margin-top: 20rpx;
+    margin-left: 50rpx;
+    width:50rpx;
+    height:50rpx;
+    border-radius: 60rpx;
+}
+
+.act_btn{
+  height:60rpx;
+  font-size: 28rpx;
+  line-height: 60rpx;
+}

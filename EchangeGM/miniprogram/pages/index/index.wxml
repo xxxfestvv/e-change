@@ -1,0 +1,12 @@
+<block wx:for="{{lists}}" wx:key="{{index}}">
+<view class='dd_out_box' data-id="{{index}}">
+  <text class="dd_in_info">订单号：{{item._id}}已发货\n</text>
+  <image src="../../images/1.1.png" class="dd_pic"></image>
+  <view class='dd_in_sit'>
+  <text class='dd_in_title'>{{item.name}}\n</text>
+  <text class='dd_in_place'>发货点：{{item.place}}提货点</text>
+  </view>
+  <button class="dd_in_button_w" bindtap="unrecp" data-id="{{index}}">我未收到</button>
+  <button class="dd_in_button_g" bindtap="recped" hover-class="btnhover" data-id="{{index}}">我已收到</button>
+</view> 
+</block>

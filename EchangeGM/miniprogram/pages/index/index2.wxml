@@ -1,0 +1,14 @@
+<button class="act_btn" bindtap='nav_to'>新建活动</button>
+<block wx:for="{{lists}}" wx:key="{{index}}" wx:for-item="item">
+<view class='hd_out_box'>
+  <image src="../../images/1.1.png" class="hd_pic"></image>
+  <view class='hd_in_sit'>
+  <text class='hd_in_title' style="color:#000">{{item.name}}\n</text>
+  <text class='hd_in_num' style="color:#5A5A5A">已报名人数:{{item.num}}</text>
+  </view>
+  <view bindtap="act_del" data-id="{{index}}">
+  <image src="../../images/close.jpg" class="hd_in_clean" data-id="{{index}}"></image>
+  </view>
+  <button class="hd_in_button" bindtap="eli_nav_to" data-id="{{index}}">编辑</button>
+</view>
+</block>

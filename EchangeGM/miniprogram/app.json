@@ -1,0 +1,30 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/index/index2",
+    "pages/index/index3"
+  ],
+  "window": {
+    "backgroundColor": "#F6F6F6",
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#F6F6F6",
+    "navigationBarTitleText": "订单管理",
+    "navigationBarTextStyle": "black"
+  },
+  "tabBar":{
+    "list": [
+      {
+      "pagePath": "pages/index/index",
+      "text":"订单管理",
+      "iconPath": "images/buy.png",
+      "selectedIconPath": "images/buy_h1.png"
+      },
+      {
+      "pagePath": "pages/index/index2",
+      "text":"活动管理",
+      "iconPath": "images/cart.png",
+      "selectedIconPath": "images/cart_h1.png"  
+      }
+    ]
+  }
+}
