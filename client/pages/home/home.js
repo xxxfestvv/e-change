@@ -1,4 +1,4 @@
-const db = wx.cloud.database()
+const db = wx.cloud.database() //连接云数据库
 const eventCollection = db.collection('event')
 const bookCollection = db.collection('booklist')
 const noteCollection = db.collection('note')

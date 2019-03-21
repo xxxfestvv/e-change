@@ -124,7 +124,7 @@ Page({
 
   confirm: function() {
     var that = this;
-    if(!that.data.note_title){
+    if (!that.data.note_title) {
       wx.showToast({
         title: '请输入资料名',
         icon: 'none',
@@ -182,31 +182,34 @@ Page({
     if (isbn) {
       bookCollection.where({
         isbn: isbn
-      }).get().then(res => {
-        // console.log(res.data[0]);
-        let book_title = res.data[0].title;
-        let book_writer = res.data[0].writer;
-        let book_point = res.data[0].point;
-        let book_image = res.data[0].image;
-        currentCollection.add({
-          data: {
-            type: 1,
-            isbn: isbn,
-            title: book_title,
-            writer: book_writer,
-            point: book_point,
-            image: book_image
-          }
-        }).then(res => {
-          wx.navigateTo({
-            url: '../book_nav/book_nav'
+      }).get({
+        success(res) {
+          // console.log(res.data[0]);
+          currentCollection.add({
+            data: {
+              type: 1,
+              isbn: isbn,
+              title: res.data[0].title,
+              writer: res.data[0].writer,
+              point: res.data[0].point,
+              image: res.data[0].image
+            }
+          }).then(res => {
+            wx.navigateTo({
+              url: '../book_nav/book_nav'
+            })
+          }).catch(e => {
+            console.error(e)
           })
-          // console.log(res)
-        }).catch(e => {
-          console.error(e)
-        });
+        },
+        fail: 
+          wx.showToast({
+            title: '目前不收这本书哦',
+            icon: 'none',
+            duration: 2000
+          })
+        
       })
-      
     }
 
     // wx.navigateTo({
@@ -227,30 +230,38 @@ Page({
         var result = parseInt(res.result);
         bookCollection.where({
           isbn: result
-        }).get().then(res => {
-          // console.log(res.data[0]);
-          let book_title = res.data[0].title;
-          let book_writer = res.data[0].writer;
-          let book_point = res.data[0].point;
-          let book_image = res.data[0].image;
-          currentCollection.add({
-            data: {
-              type: 1,
-              isbn: result,
-              title: book_title,
-              writer: book_writer,
-              point: book_point,
-              image: book_image
-            }
-          }).then(res => {
-            wx.navigateTo({
-              url: '../book_nav/book_nav'
+        }).get({
+          success(res) {
+            // console.log(res.data[0]);
+            let book_title = res.data[0].title;
+            let book_writer = res.data[0].writer;
+            let book_point = res.data[0].point;
+            let book_image = res.data[0].image;
+            currentCollection.add({
+              data: {
+                type: 1,
+                isbn: result,
+                title: book_title,
+                writer: book_writer,
+                point: book_point,
+                image: book_image
+              }
+            }).then(res => {
+              wx.navigateTo({
+                url: '../book_nav/book_nav'
+              })
+            }).catch(e => {
+              console.error(e)
+            });
+          },
+          fail:
+            wx.showToast({
+              title: '目前不收这本书哦',
+              icon: 'none',
+              duration: 2000
             })
-          }).catch(e => {
-            console.error(e)
-          });
+          
         })
-
       },
       fail: function(e) {
         // console.error(e);
@@ -266,7 +277,7 @@ Page({
 
   addnote: function() {
     var that = this;
-    if(that.data.image_link){
+    if (that.data.image_link) {
       noteCollection.add({
         data: {
           image: that.data.image_link,
@@ -298,7 +309,7 @@ Page({
       }).catch(e => {
         console.error(e)
       })
-    }else{
+    } else {
       wx.showToast({
         title: '请上传图片',
         icon: 'none',

@@ -178,6 +178,9 @@ Page({
           icon: 'none',
           duration: 2000
         })
+        wx.reLaunch({
+          url: '../car/car',
+        })
       } else {
         //扣积分
         let curpoint = res.data[0].point - totalpoint;
@@ -296,9 +299,9 @@ Page({
           duration: 2000
         });
 
-        // wx.navigateTo({
-        //   url: '../my_order/my_order'
-        // });
+        wx.navigateTo({
+          url: '../my_order/my_order'
+        });
       }
     });
 
