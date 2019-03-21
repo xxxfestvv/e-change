@@ -1,0 +1,57 @@
+.out_box{
+  margin-left: 20rpx;
+  margin-top: 30rpx;
+  margin-right: 26rpx;
+  margin-bottom: 20rpx;
+  padding-left: 48rpx;
+  width: 664rpx;
+  height: 1150rpx;
+  line-height: 40rpx;
+  box-shadow: 4rpx 4rpx 18rpx 0rpx rgba(170, 170, 170, 1);
+}
+
+.upload_pic{
+    margin: 50rpx 80rpx 0rpx 10rpx;
+    width: 598rpx;
+    height: 208rpx;
+}
+
+.act_list{
+    margin: 10rpx 80rpx 52rpx 10rpx;
+    height:60rpx;
+    width: 596rpx;
+    font-size: 32rpx;
+}
+
+.style_btn{
+    height: 60rpx;
+    width:380rpx;
+    font-size: 32rpx;
+    border-radius: 30rpx;
+    text-align: center;
+    line-height: 60rpx;
+    vertical-align: middle;
+    background-color: rgba(234,87,92,1);
+    color: #FFF;
+    font-weight: bold;
+    box-shadow: 4rpx 4rpx 20rpx 0rpx rgba(170, 170, 170, 1);
+    border: 2rpx solid #FFF;
+}
+.style_btn.btnhover{
+    background-color: rgb(255, 0, 8)
+}
+
+input{
+    font-size: 28rpx;
+    width: 400rpx;
+    border: 2rpx solid #80808049;
+    float: right;
+}
+textarea{
+    font-size: 28rpx;
+    width: 400rpx;
+    border: 2rpx solid #80808049;
+    float: right;
+    height:260rpx;
+    margin-bottom:80rpx;
+}

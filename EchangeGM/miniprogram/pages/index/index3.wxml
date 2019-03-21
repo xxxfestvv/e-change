@@ -1,0 +1,21 @@
+<view class="out_box">
+<image class="upload_pic" src="{{temp_path}}" bindtap="upload_pic"></image>
+<text style="font-size:20rpx">（注：图片长宽比为4:1）</text>
+<view class="act_list">
+<text style="float:left">活动名称: </text>
+<input placeholder="输入名称" bindinput="names" value='{{name}}'></input>
+</view>
+<view class="act_list">
+<text style="float:left">活动时间：</text>
+<input placeholder="输入时间" bindinput="times" value="{{time}}"></input>
+</view>
+<view class="act_list">
+<text style="float:left">活动地点：</text>
+<input placeholder="输入地点" bindinput="places" value="{{place}}"></input>
+</view>
+<view class="act_list">
+<text style="float:left">活动简介：</text>
+<textarea placeholder=" 输入简介" bindinput="infos" value="{{info}}"></textarea>
+</view>
+<button class="style_btn" bindtap="save" hover-class="btnhover">保存</button>
+</view>

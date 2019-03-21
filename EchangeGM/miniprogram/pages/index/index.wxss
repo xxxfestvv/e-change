@@ -1,0 +1,70 @@
+.act_btn{
+  height:60rpx;
+  font-size: 28rpx;
+  line-height: 60rpx;
+}
+
+.dd_out_box{
+  margin-left: 24rpx;
+  margin-top: 30rpx;
+  margin-right: 24rpx;
+  margin-bottom: 20rpx;
+  padding: 20rpx 20rpx 0rpx 20rpx;
+  width: 664rpx;
+  height: 250rpx;
+  line-height: 40rpx;
+  box-shadow: 4rpx 4rpx 18rpx 0rpx rgba(170, 170, 170, 1);
+}
+
+.dd_in_info{
+  font-size: 28rpx;
+}
+
+.dd_in_sit{
+  width: 320rpx;
+  height: 150rpx;
+  margin-left:20rpx;
+  margin-top:30rpx;
+  color: #5A5A5A;
+  float:left
+}
+
+.dd_in_title{
+  font-size: 32rpx;
+}
+
+.dd_in_place{
+  font-size: 24rpx;
+  line-height: 72rpx;
+}
+
+.dd_pic{
+  width: 118rpx;
+  height:150rpx;
+  margin-top: 20rpx;
+  float: left;
+  background-color: #8BC34A;
+}
+.dd_in_button_w{
+  width:180rpx;
+  height:60rpx;
+  font-size:28rpx;
+  line-height: 60rpx;
+  text-align: center;
+  margin-top:30rpx;
+}
+.dd_in_button_g.btnhover{
+  background-color: rgb(51, 94, 3)
+}
+.dd_in_button_g{
+  width:180rpx;
+  height:60rpx;
+  font-size:28rpx;
+  line-height: 60rpx;
+  text-align: center;
+  margin-top:30rpx;
+  margin-top:16rpx;
+  background-color: #8BC34A;
+  color:#FFF;
+  font-weight: bold;
+}
